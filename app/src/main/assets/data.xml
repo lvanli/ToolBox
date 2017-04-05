@@ -1,0 +1,214 @@
+<application>
+    <information count="1">
+        <name>CountDown</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown19</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="3">
+        <name>五子棋</name>
+        <action>com.lizhiguang.action.fir</action>
+        <image>img2.jpg</image>
+    </information>
+
+    <information count="4">
+        <name>CountDown4</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="5">
+        <name>CountDown5</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="6">
+        <name>CountDown6</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="7">
+        <name>CountDown7</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="8">
+        <name>CountDown8</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="9">
+        <name>CountDown9</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="10">
+        <name>CountDown0</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown11</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown12</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown13</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown14</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown15</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown16</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown17</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown18</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown19</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <!--<information count="2">
+        <name>CountDown10</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown21</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown22</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown23</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown24</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown25</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown26</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown27</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown28</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown29</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown30</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown31</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown32</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown33</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown34</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown35</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown36</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown37</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown38</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown39</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown40</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="1">
+        <name>CountDown41</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    <information count="2">
+        <name>CountDown42</name>
+        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <image>img2.jpg</image>
+    </information>
+    -->
+</application>

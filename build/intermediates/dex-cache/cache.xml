@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.4.0_d699d85f86e750e6ea05d1d72908acca5b60c5f0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.4.0_22dac5e15a4c3d8454a1edfa5e14bc612e79b100.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/pre-dexed/debug/internal_impl-23.4.0_c96299512c5a2d74041784d457bc2024c56ca7e1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.0.1_f3f068bb732cebe8045e472092032529de20893e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/Shared/android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_bd11a15b0f2f2921188dfc058f567c06e8c636cd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/exploded-aar/ToolBox/straightenhouse/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="65c4dfeb2b8bb15751e3fa7ffd91f04c7c38ab52">
+        <dex dex="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/pre-dexed/debug/ToolBox-straightenhouse-unspecified_82968cc6090d3b45a4f7cab8168d13beffaca715.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.4.0_6b7a96264705a080e60db552232091bddbceacaa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/Users/lizhiguang/360云盘/android/ToolBox/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.4.0_c6d6e9521874d7171e397a4905da8a8161fe033d.jar" />
+    </item>
+
+</items>

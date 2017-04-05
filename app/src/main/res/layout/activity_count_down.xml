@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/img_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".CountDown.CountDownActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/count_down_default_padding_top"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <com.lizhiguang.administrator.toolbox.CountDown.CountDownPushBar
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/count_down_push_bar_backgroud"
+            android:id="@+id/countDownHour"
+            app:number="0"
+            app:maxNumber="12" />
+
+        <com.lizhiguang.administrator.toolbox.CountDown.CountDownPushBar
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/count_down_push_bar_backgroud"
+            android:id="@+id/countDownMinute"
+            app:number="3"
+            app:maxNumber="60" />
+
+        <com.lizhiguang.administrator.toolbox.CountDown.CountDownPushBar
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/count_down_push_bar_backgroud"
+            android:id="@+id/countDownSecond"
+            app:number="59"
+            app:maxNumber="60" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="70dp"
+        android:text="0:0:0:0"
+        android:id="@+id/countDownText"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:text="Reset"
+            android:id="@+id/countDownReset" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:text="Begin"
+            android:id="@+id/countDownButton" />
+    </LinearLayout>
+</LinearLayout>

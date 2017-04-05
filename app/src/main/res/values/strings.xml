@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ToolBox</string>
+    <string name="action_settings">设置</string>
+    <string name="action_back">返回</string>
+    <string name="map_size">棋盘</string>
+    <string name="first_hand">先手</string>
+    <integer name="middle_weight">8</integer>
+    <integer name="bottom_weight">2</integer>
+    <integer name="default_size">100</integer>
+    <integer name="text_size">22</integer>
+    <integer name="during">1</integer>
+</resources>
