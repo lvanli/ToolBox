@@ -18,6 +18,7 @@ import org.w3c.dom.Text;
 public class SimpleRefreshHeaderCreator extends DefaultRefreshHeaderCreator {
     private ImageView iv;
     private TextView tv;
+
     @Override
     public View getRefreshView(Context context, RecyclerView recyclerView) {
         View view = super.getRefreshView(context, recyclerView);

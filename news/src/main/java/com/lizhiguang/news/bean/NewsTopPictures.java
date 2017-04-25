@@ -7,6 +7,7 @@ package com.lizhiguang.news.bean;
 public class NewsTopPictures {
     private String path;
     private String url;
+
     public String getPath() {
         return path;
     }

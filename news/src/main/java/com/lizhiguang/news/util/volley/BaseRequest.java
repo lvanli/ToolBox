@@ -17,11 +17,13 @@ import java.io.UnsupportedEncodingException;
 public abstract class BaseRequest<T> extends Request<T> {
     protected static final String PROTOCOL_CHARSET = "utf-8";
     protected Response.Listener<T> mSuccessListener;
+
     public BaseRequest(String url, Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         mSuccessListener = listener;
     }
-    public BaseRequest(String url,NewsResource.OnNewsRequestListener listener) {
+
+    public BaseRequest(String url, NewsResource.OnNewsRequestListener listener) {
         super(Method.GET, url, new EListener(listener));
         mSuccessListener = new SListener(listener);
     }
@@ -57,17 +59,21 @@ public abstract class BaseRequest<T> extends Request<T> {
 
     private class SListener implements Response.Listener<T> {
         private NewsResource.OnNewsRequestListener listener;
-        SListener (NewsResource.OnNewsRequestListener listener) {
+
+        SListener(NewsResource.OnNewsRequestListener listener) {
             this.listener = listener;
         }
+
         @Override
         public void onResponse(T response) {
             listener.Result(response);
         }
     }
+
     private static class EListener implements Response.ErrorListener {
         private NewsResource.OnNewsRequestListener listener;
-        EListener (NewsResource.OnNewsRequestListener listener) {
+
+        EListener(NewsResource.OnNewsRequestListener listener) {
             this.listener = listener;
         }
 

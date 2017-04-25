@@ -23,9 +23,11 @@ import java.io.OutputStream;
 public class FileCacheUtil {
     private static final double MB = 1024 * 1024;
     Context mContext;
+
     public FileCacheUtil(Context context) {
         mContext = context;
     }
+
     public static String getDiskCachePath(Context context) {
         File file;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
@@ -40,12 +42,14 @@ public class FileCacheUtil {
             return context.getCacheDir().getPath();
         }
     }
+
     public boolean isExist(String tag) {
-        LogUtil.d("tag="+tag+",path="+getDiskCachePath(mContext));
+        LogUtil.d("tag=" + tag + ",path=" + getDiskCachePath(mContext));
         String path = getDiskCachePath(mContext) + File.separator + tag + ".cache";
         File file = new File(path);
         return file.exists();
     }
+
     private int getFreeMB() {
         StatFs stat = new StatFs(getDiskCachePath(mContext));
         double free;
@@ -53,21 +57,22 @@ public class FileCacheUtil {
             free = stat.getAvailableBlocksLong() * stat.getBlockSizeLong() / MB;
         else
             free = ((double) stat.getAvailableBlocks() * (double) stat
-                .getBlockSize()) / MB;
+                    .getBlockSize()) / MB;
         return (int) free;
     }
-    public void putCache(String tag,Object o) {
+
+    public void putCache(String tag, Object o) {
         if (getFreeMB() <= 1) {
             return;
         }
         String path = getDiskCachePath(mContext) + File.separator + tag + ".cache";
-        LogUtil.d("path="+path);
+        LogUtil.d("path=" + path);
         File file = new File(path);
         try {
             if (!file.exists())
                 file.createNewFile();
             OutputStream outputStream = new FileOutputStream(file);
-            ObjectOutputStream oOutputStream =  new ObjectOutputStream(outputStream);
+            ObjectOutputStream oOutputStream = new ObjectOutputStream(outputStream);
             oOutputStream.writeObject(o);
             oOutputStream.close();
             outputStream.close();
@@ -75,6 +80,7 @@ public class FileCacheUtil {
             e.printStackTrace();
         }
     }
+
     public Object getCache(String tag) {
         String path = getDiskCachePath(mContext) + File.separator + tag + ".cache";
         File file = new File(path);
@@ -94,6 +100,7 @@ public class FileCacheUtil {
         }
         return null;
     }
+
     public void recycleCache(String tag) {
         String path = getDiskCachePath(mContext) + File.separator + tag + ".cache";
         File file = new File(path);
@@ -101,12 +108,13 @@ public class FileCacheUtil {
             return;
         file.delete();
     }
+
     public void clearCache() {
         File file = new File(getDiskCachePath(mContext));
         if (file.exists() && file.isDirectory()) {
             File files[] = file.listFiles();
             if (files != null)
-                for (int i=0;i<files.length;i++) {
+                for (int i = 0; i < files.length; i++) {
                     if (files[i].isFile())
                         files[i].delete();
                 }

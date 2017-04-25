@@ -34,14 +34,15 @@ public class DownloadIntentService extends IntentService {
     public DownloadIntentService() {
         super("DownloadIntentService");
     }
-    public static void startDownloadImg(Context context, String url,String path)
-    {
+
+    public static void startDownloadImg(Context context, String url, String path) {
         Intent intent = new Intent(context, DownloadIntentService.class);
         intent.setAction(ACTION_DOWNLOAD);
         intent.putExtra(EXTRA_FILE_URL, url);
         intent.putExtra(EXTRA_FILE_PATH, path);
         context.startService(intent);
     }
+
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
@@ -49,26 +50,26 @@ public class DownloadIntentService extends IntentService {
             if (ACTION_DOWNLOAD.equals(action)) {
                 final String url = intent.getStringExtra(EXTRA_FILE_URL);
                 final String path = intent.getStringExtra(EXTRA_FILE_PATH);
-                handleActionDownload(url,path);
+                handleActionDownload(url, path);
             }
         }
     }
 
 
     public String getIdFromUrl(String url) {
-        return url.substring(url.lastIndexOf("/")+1);
+        return url.substring(url.lastIndexOf("/") + 1);
     }
 
     /**
      * Handle action Foo in the provided background thread with the provided
      * parameters.
      */
-    private void handleActionDownload(String url,String path) {
+    private void handleActionDownload(String url, String path) {
         try {
-            Bitmap bitmap = Glide.with(getApplicationContext()).load(url).asBitmap().into(500,500).get();
+            Bitmap bitmap = Glide.with(getApplicationContext()).load(url).asBitmap().into(500, 500).get();
             File file = new File(path);
             FileOutputStream outputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         } catch (ExecutionException e1) {

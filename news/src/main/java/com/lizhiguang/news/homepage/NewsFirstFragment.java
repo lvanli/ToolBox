@@ -41,7 +41,7 @@ public class NewsFirstFragment extends Fragment implements View.OnClickListener 
     CarouselPagerAdapter mAdapter;
     RecyclerAdapter mRecyclerAdapter;
 
-    public NewsFirstFragment (Context context) {
+    public NewsFirstFragment(Context context) {
         mContext = context;
     }
 
@@ -54,19 +54,19 @@ public class NewsFirstFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onAttach(Context context) {
         mContext = context;
-        LogUtil.d("mC="+mContext);
+        LogUtil.d("mC=" + mContext);
         super.onAttach(context);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.news_recycle,null);
+        View view = inflater.inflate(R.layout.news_recycle, null);
         mViewPager = (ViewPager) view.findViewById(R.id.news_recycle_viewPager);
-        mAdapter = new CarouselPagerAdapter(mContext,mViewPager,this);
+        mAdapter = new CarouselPagerAdapter(mContext, mViewPager, this);
         mViewPager.setAdapter(mAdapter);
 
-        mRecyclerAdapter = new RecyclerAdapter(mContext,this);
+        mRecyclerAdapter = new RecyclerAdapter(mContext, this);
         mRecyclerView = (AutoLoadRecyclerView) view.findViewById(R.id.news_recycle_main);
         if (false) {
             mRecyclerAdapter.setMode(RecyclerAdapter.MODE_FALL);
@@ -107,7 +107,7 @@ public class NewsFirstFragment extends Fragment implements View.OnClickListener 
             public void run() {
                 mAdapter.setDetails(pictures);
                 mAdapter.notifyDataSetChanged();
-                mViewPager.setCurrentItem(pictures.size() + 1,false);
+                mViewPager.setCurrentItem(pictures.size() + 1, false);
             }
         });
     }
@@ -127,8 +127,8 @@ public class NewsFirstFragment extends Fragment implements View.OnClickListener 
             @Override
             public void run() {
                 int count = mRecyclerAdapter.getItemCount();
-                for (int i=0;i<details.size();i++)
-                    mRecyclerAdapter.addData(details.get(i),count++);
+                for (int i = 0; i < details.size(); i++)
+                    mRecyclerAdapter.addData(details.get(i), count++);
                 mRecyclerAdapter.notifyDataSetChanged();
             }
         });
@@ -141,18 +141,18 @@ public class NewsFirstFragment extends Fragment implements View.OnClickListener 
             //viewpager
             showToast((String) view.getTag(R.id.tag_first));
             intent = new Intent(mContext, NewsShowDetailActivity.class);
-            intent.putExtra("url",(String) view.getTag(R.id.tag_first));
+            intent.putExtra("url", (String) view.getTag(R.id.tag_first));
             startActivity(intent);
         } else if (view instanceof TextView) {
             //shortDetail
             showToast((String) view.getTag());
             intent = new Intent(mContext, NewsShowDetailActivity.class);
-            intent.putExtra("url",(String) view.getTag());
+            intent.putExtra("url", (String) view.getTag());
             startActivity(intent);
         }
     }
 
     public void showToast(String msg) {
-        Toast.makeText(mContext,msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
 }

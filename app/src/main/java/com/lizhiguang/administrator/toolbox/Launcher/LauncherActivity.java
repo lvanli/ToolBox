@@ -63,7 +63,7 @@ public class LauncherActivity extends AppCompatActivity {
                 fragments.add(fragment);
             }
             MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments);
-            mainPager.addOnPageChangeListener(new ViewPagerIndicator(this,mainPager, (LinearLayout) findViewById(R.id.launcherPagerIndicator),adapter.getCount()));
+            mainPager.addOnPageChangeListener(new ViewPagerIndicator(this, mainPager, (LinearLayout) findViewById(R.id.launcherPagerIndicator), adapter.getCount()));
             mainPager.setAdapter(adapter);
             return;
         }

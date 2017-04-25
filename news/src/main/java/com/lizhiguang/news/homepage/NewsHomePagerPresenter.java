@@ -22,27 +22,33 @@ public class NewsHomePagerPresenter implements NewsResource.OnNewsShortListener 
     private NewsFirstFragment mView;
     private Date mDate;
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+
     public NewsHomePagerPresenter setResource(NewsResource resource) {
         mDataResource = resource;
         return this;
     }
+
     public void setView(NewsFirstFragment firstFragment) {
         mView = firstFragment;
     }
+
     public void start() {
         init();
     }
+
     private void init() {
 //        getMainPictures();
         mDate = new Date(System.currentTimeMillis());//获取当前时间
         getNews();
     }
+
     public void getMainPictures() {
 //        mDataResource.getMainPicturesPath();
 //        mView.showMainPictures();
     }
+
     public void getNews() {
-        mDataResource.getMainNews(getTodayTag(),this);
+        mDataResource.getMainNews(getTodayTag(), this);
 //        mView.showMainNews(mDataResource.getMainNews());
     }
 
@@ -58,32 +64,34 @@ public class NewsHomePagerPresenter implements NewsResource.OnNewsShortListener 
             }
         });
     }
+
     public void refreshNews() {
         mView.showToast("下拉刷新");
         mDataResource.recycleCache(getTodayTag());
-        mDataResource.getMainNews(getTodayTag(),this);
+        mDataResource.getMainNews(getTodayTag(), this);
     }
 
     public void cacheWeekNews() {
         Date date = new Date(System.currentTimeMillis());
         mDataResource.cacheTodayNews(getTodayTag());
-        for (int i=1;i<=7;i++) {
-            mDataResource.cacheNews(formatter.format(addDate(date,0-i)));
+        for (int i = 1; i <= 7; i++) {
+            mDataResource.cacheNews(formatter.format(addDate(date, 0 - i)));
         }
     }
+
     private String getTodayTag() {
         return formatter.format(new Date(System.currentTimeMillis()));
     }
 
-    private String getBeforeDate () {
-        mDate = addDate(mDate,-1);
+    private String getBeforeDate() {
+        mDate = addDate(mDate, -1);
         return formatter.format(mDate);
     }
 
-    private Date addDate(Date date,int move) {
+    private Date addDate(Date date, int move) {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
-        calendar.add(calendar.DATE,move);
+        calendar.add(calendar.DATE, move);
         return calendar.getTime();
     }
 
@@ -102,7 +110,7 @@ public class NewsHomePagerPresenter implements NewsResource.OnNewsShortListener 
                     result.remove(i);
                 }
             }
-            LogUtil.d("result="+result.size()+",tops="+tops.size());
+            LogUtil.d("result=" + result.size() + ",tops=" + tops.size());
             mView.showMainNews(result);
             mView.showMainPictures(tops);
         } else

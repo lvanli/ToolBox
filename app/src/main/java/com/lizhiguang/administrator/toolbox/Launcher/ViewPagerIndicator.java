@@ -56,7 +56,7 @@ public class ViewPagerIndicator implements ViewPager.OnPageChangeListener {
 
     @Override
     public void onPageSelected(int position) {
-        Log.d(TAG, "onPageSelected: po="+position+",s="+size);
+        Log.d(TAG, "onPageSelected: po=" + position + ",s=" + size);
         for (int i = 0; i < size; i++) {
             //选中的页面改变小圆点为选中状态，反之为未选中
             if ((position % size) == i) {

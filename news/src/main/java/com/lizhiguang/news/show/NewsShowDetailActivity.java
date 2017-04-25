@@ -16,18 +16,19 @@ public class NewsShowDetailActivity extends AppCompatActivity {
     WebView webView;
     String url;
     NewsShowDetailPresenter mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_show_detail);
-        LogUtil.d("intent="+getIntent());
+        LogUtil.d("intent=" + getIntent());
         init(getIntent());
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        LogUtil.d("intent="+intent);
+        LogUtil.d("intent=" + intent);
         init(intent);
     }
 
@@ -42,7 +43,7 @@ public class NewsShowDetailActivity extends AppCompatActivity {
         if (intent == null)
             return;
         url = intent.getStringExtra("url");
-        LogUtil.d("url="+url);
+        LogUtil.d("url=" + url);
         webView = (WebView) findViewById(R.id.news_show_detail_web);
 //        webView.setWebChromeClient(new WebChromeClient());
         webView.getSettings().setBuiltInZoomControls(false);
@@ -52,10 +53,11 @@ public class NewsShowDetailActivity extends AppCompatActivity {
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        mPresenter = new NewsShowDetailPresenter(this,new NewsResourceFromZhiHu(this));
+        mPresenter = new NewsShowDetailPresenter(this, new NewsResourceFromZhiHu(this));
     }
+
     public void showDetail(String detail) {
         //"x-data://base"
-        webView.loadDataWithBaseURL("file://" + FileCacheUtil.getDiskCachePath(this)+"/",detail,"text/html","utf-8",null);
+        webView.loadDataWithBaseURL("file://" + FileCacheUtil.getDiskCachePath(this) + "/", detail, "text/html", "utf-8", null);
     }
 }

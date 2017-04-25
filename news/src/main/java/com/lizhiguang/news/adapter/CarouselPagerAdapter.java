@@ -20,14 +20,14 @@ import java.util.List;
  * Created by lizhiguang on 2017/4/17.
  */
 
-public class CarouselPagerAdapter extends PagerAdapter{
+public class CarouselPagerAdapter extends PagerAdapter {
     public static final int CAROUSEL_MULTIPLE = 3;
     List<NewsShortDetail> details;
     private Context mContext;
     private ViewPager mViewPager;
     private View.OnClickListener mListener;
 
-    public CarouselPagerAdapter(Context context,ViewPager pager,View.OnClickListener listener) {
+    public CarouselPagerAdapter(Context context, ViewPager pager, View.OnClickListener listener) {
         mContext = context;
         mViewPager = pager;
         mListener = listener;
@@ -39,17 +39,17 @@ public class CarouselPagerAdapter extends PagerAdapter{
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View)object);
+        container.removeView((View) object);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageButton imageButton = new ImageButton(mContext);
-        imageButton.setTag(R.id.tag_first,details.get(position%details.size()).getUrl());
+        imageButton.setTag(R.id.tag_first, details.get(position % details.size()).getUrl());
         imageButton.setOnClickListener(mListener);
-        container.addView(imageButton,ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        container.addView(imageButton, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 //        Glide.with(mContext).load(details.get(position%details.size()).getPath()).bitmapTransform(new GrayscaleTransformation(mContext)).override(container.getMeasuredWidth(),container.getMeasuredHeight()).centerCrop().into(imageButton);
-        Glide.with(mContext).load(details.get(position%details.size()).getPath()).into(imageButton);
+        Glide.with(mContext).load(details.get(position % details.size()).getPath()).into(imageButton);
         return imageButton;
     }
 

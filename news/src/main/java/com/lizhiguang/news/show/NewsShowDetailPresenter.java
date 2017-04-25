@@ -9,12 +9,14 @@ import com.lizhiguang.news.resource.NewsResource;
 public class NewsShowDetailPresenter implements NewsResource.OnNewsDetailListener {
     NewsShowDetailActivity mView;
     NewsResource mDataSource;
-    NewsShowDetailPresenter(NewsShowDetailActivity view,NewsResource resource) {
+
+    NewsShowDetailPresenter(NewsShowDetailActivity view, NewsResource resource) {
         mView = view;
         mDataSource = resource;
     }
+
     public void getDetail(String url) {
-        mDataSource.getNewsDetail(url,this);
+        mDataSource.getNewsDetail(url, this);
     }
 
     @Override

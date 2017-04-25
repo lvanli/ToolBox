@@ -21,20 +21,22 @@ public class NewsActivity extends AppCompatActivity {
     private TabHost mTabHost;
     private NewsHomePagerPresenter mPresenter;
     private LocalReceiver receiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
         init();
     }
+
     private void init() {
         mTabHost = (TabHost) findViewById(R.id.news_tab);
         mTabHost.setup();
         LayoutInflater inflater = LayoutInflater.from(this);
-        inflater.inflate(R.layout.news_first_content,mTabHost.getTabContentView());
+        inflater.inflate(R.layout.news_first_content, mTabHost.getTabContentView());
         mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("知乎").setContent(R.id.news_first_layout));
         mPresenter = new NewsHomePagerPresenter().setResource(new NewsResourceFromZhiHu(this));
-        getFragmentManager().beginTransaction().add(R.id.news_first_layout,new NewsFirstFragment(this).setPresenter(mPresenter)).commit();
+        getFragmentManager().beginTransaction().add(R.id.news_first_layout, new NewsFirstFragment(this).setPresenter(mPresenter)).commit();
 
         IntentFilter filter = new IntentFilter(DownloadIntentService.ACTION_DOWNLOAD_OVER);
         receiver = new LocalReceiver();
@@ -50,7 +52,7 @@ public class NewsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_news,menu);
+        getMenuInflater().inflate(R.menu.menu_news, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -68,7 +70,7 @@ public class NewsActivity extends AppCompatActivity {
     class LocalReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Toast.makeText(NewsActivity.this,"下载完成",Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewsActivity.this, "下载完成", Toast.LENGTH_SHORT).show();
         }
     }
 }

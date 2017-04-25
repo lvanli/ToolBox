@@ -14,8 +14,9 @@ public class NewsTopsRequest extends BaseRequest<List<NewsTopPictures>> {
     public NewsTopsRequest(String url, Response.Listener<List<NewsTopPictures>> listener, Response.ErrorListener errorListener) {
         super(url, listener, errorListener);
     }
-    public NewsTopsRequest(String url,NewsResource.OnNewsRequestListener listener) {
-        super(url,listener);
+
+    public NewsTopsRequest(String url, NewsResource.OnNewsRequestListener listener) {
+        super(url, listener);
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.Resource;
@@ -53,7 +54,8 @@ public class GrayscaleTransformation implements Transformation<Bitmap> {
         return BitmapResource.obtain(bitmap, mBitmapPool);
     }
 
-    @Override public String getId() {
+    @Override
+    public String getId() {
         return "GrayscaleTransformation()";
     }
 }

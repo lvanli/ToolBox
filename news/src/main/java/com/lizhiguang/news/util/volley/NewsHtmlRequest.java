@@ -26,6 +26,7 @@ public class NewsHtmlRequest extends BaseRequest<String> {
         }
         return null;
     }
+
     private String convertZhihuContent(String preResult) {
 
         preResult = preResult.replace("<div class=\"img-place-holder\">", "");

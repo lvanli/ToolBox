@@ -19,8 +19,9 @@ public class NewsShortRequest extends BaseRequest<List<NewsShortDetail>> {
     public NewsShortRequest(String url, Response.Listener<List<NewsShortDetail>> listener, Response.ErrorListener errorListener) {
         super(url, listener, errorListener);
     }
+
     public NewsShortRequest(String url, NewsResource.OnNewsRequestListener listener) {
-        super(url,listener);
+        super(url, listener);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class NewsShortRequest extends BaseRequest<List<NewsShortDetail>> {
         if (json != null && json.size() != 0) {
             if (json.containsKey("stories")) {
                 JSONArray array = json.getJSONArray("stories");
-                for (int i = 0;i < array.size();i++) {
+                for (int i = 0; i < array.size(); i++) {
                     object = array.getJSONObject(i);
                     if (object.containsKey("images") && object.containsKey("title") && object.containsKey("id")) {
                         NewsShortDetail detail = new NewsShortDetail();
@@ -46,7 +47,7 @@ public class NewsShortRequest extends BaseRequest<List<NewsShortDetail>> {
             }
             if (json.containsKey("top_stories")) {
                 JSONArray array = json.getJSONArray("top_stories");
-                for (int i=0;i<array.size();i++) {
+                for (int i = 0; i < array.size(); i++) {
                     object = array.getJSONObject(i);
                     if (object.containsKey("image") && object.containsKey("title") && object.containsKey("id")) {
                         NewsShortDetail detail = new NewsShortDetail();

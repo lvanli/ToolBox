@@ -15,12 +15,13 @@ import android.widget.ImageView;
 public class ViewPagerIndicatorCircleWidget extends ImageView {
     private static final String TAG = "ViewPagerIndicatorCircl";
     private Paint paint;
+
     public ViewPagerIndicatorCircleWidget(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public ViewPagerIndicatorCircleWidget(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public ViewPagerIndicatorCircleWidget(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -48,9 +49,9 @@ public class ViewPagerIndicatorCircleWidget extends ImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.d(TAG, "onDraw: w="+getMeasuredWidth()+",h="+getMeasuredHeight());
+        Log.d(TAG, "onDraw: w=" + getMeasuredWidth() + ",h=" + getMeasuredHeight());
         int radius = getMeasuredHeight() > getMeasuredWidth() ? getMeasuredWidth() : getMeasuredHeight();
         radius = radius / 2 - 2;
-        canvas.drawCircle(getMeasuredWidth()/2,getMeasuredHeight()/2,radius,paint);
+        canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, radius, paint);
     }
 }
