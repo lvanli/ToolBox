@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">News</string>
+    <item name="tag_first" type="id" />
+</resources>

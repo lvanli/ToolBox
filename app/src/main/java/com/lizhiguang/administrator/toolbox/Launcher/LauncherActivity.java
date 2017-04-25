@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.lizhiguang.administrator.toolbox.R;
@@ -62,6 +63,7 @@ public class LauncherActivity extends AppCompatActivity {
                 fragments.add(fragment);
             }
             MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments);
+            mainPager.addOnPageChangeListener(new ViewPagerIndicator(this,mainPager, (LinearLayout) findViewById(R.id.launcherPagerIndicator),adapter.getCount()));
             mainPager.setAdapter(adapter);
             return;
         }

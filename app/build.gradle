@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.3"
 
     defaultConfig {
         applicationId "com.lizhiguang.administrator.toolbox"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -24,4 +24,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //    compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
+    compile project(':news')
+
+    //LeakCanary https://github.com/square/leakcanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
 }

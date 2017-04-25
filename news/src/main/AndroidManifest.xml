@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lizhiguang.news">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+        <activity
+            android:name=".homepage.NewsActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.lizhiguang.action.NEWSACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".show.NewsShowDetailActivity" />
+
+        <service
+            android:name=".service.DownloadIntentService"
+            android:exported="false"></service>
+    </application>
+
+</manifest>

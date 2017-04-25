@@ -16,8 +16,8 @@
     </information>
 
     <information count="4">
-        <name>CountDown4</name>
-        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <name>知乎</name>
+        <action>com.lizhiguang.action.NEWSACTIVITY</action>
         <image>img2.jpg</image>
     </information>
     <information count="5">
