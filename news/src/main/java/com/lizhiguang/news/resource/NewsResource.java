@@ -1,7 +1,6 @@
 package com.lizhiguang.news.resource;
 
 import com.lizhiguang.news.bean.NewsShortDetail;
-import com.lizhiguang.news.bean.NewsTopPictures;
 
 import java.util.List;
 

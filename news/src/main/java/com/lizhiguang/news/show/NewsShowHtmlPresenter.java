@@ -6,11 +6,11 @@ import com.lizhiguang.news.resource.NewsResource;
  * Created by lizhiguang on 2017/4/21.
  */
 
-public class NewsShowDetailPresenter implements NewsResource.OnNewsDetailListener {
-    NewsShowDetailActivity mView;
+public class NewsShowHtmlPresenter implements NewsResource.OnNewsDetailListener {
+    NewsShowHtmlActivity mView;
     NewsResource mDataSource;
 
-    NewsShowDetailPresenter(NewsShowDetailActivity view, NewsResource resource) {
+    NewsShowHtmlPresenter(NewsShowHtmlActivity view, NewsResource resource) {
         mView = view;
         mDataSource = resource;
     }

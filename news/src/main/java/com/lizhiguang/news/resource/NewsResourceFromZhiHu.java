@@ -2,21 +2,16 @@ package com.lizhiguang.news.resource;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.FutureTarget;
 import com.lizhiguang.news.bean.NewsShortDetail;
 import com.lizhiguang.news.service.DownloadIntentService;
 import com.lizhiguang.news.util.LogUtil;
 import com.lizhiguang.news.util.cache.FileCacheUtil;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -99,12 +94,12 @@ public class NewsResourceFromZhiHu extends NewsResourceNetZhiHu implements NewsR
         if (result != null) {
             boolean download = false;
             for (int i = 0; i < result.size(); i++) {
-                LogUtil.d("cacheUrl=" + result.get(i).getUrl() + ",path=" + result.get(i).getPath() + ",context=" + mContext);
+                LogUtil.d("cacheUrl=" + result.get(i).getUrl() + ",path=" + result.get(i).getImagePath() + ",context=" + mContext);
                 String tag = getIdFromUrl(result.get(i).getUrl());
                 if (!mCacheUtil.isExist(tag)) {
                     download = true;
                     super.getNewsDetail(result.get(i).getUrl(), new OnNewsDetailCacheListener(getIdFromUrl(result.get(i).getUrl()), null, true));
-                    Glide.with(mContext).load(result.get(i).getPath()).downloadOnly(200, 200);
+                    Glide.with(mContext).load(result.get(i).getImagePath()).downloadOnly(200, 200);
                 }
             }
             if (!download) {

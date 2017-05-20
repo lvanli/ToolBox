@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class NewsShortDetail implements Serializable {
     private String title;
-    private String path;
+    private String imagePath;
     private String url;
     private boolean isTop;
 
@@ -20,12 +20,12 @@ public class NewsShortDetail implements Serializable {
         this.title = title;
     }
 
-    public String getPath() {
-        return path;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getUrl() {

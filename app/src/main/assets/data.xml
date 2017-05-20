@@ -21,8 +21,8 @@
         <image>img2.jpg</image>
     </information>
     <information count="5">
-        <name>CountDown5</name>
-        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <name>家居整理</name>
+        <action>com.lizhiguang.action.StraightenHouseActivity</action>
         <image>img2.jpg</image>
     </information>
     <information count="6">

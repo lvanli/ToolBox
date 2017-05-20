@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/news_menu_cache_week"
-        android:title="缓存一周"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/news_menu_cache_recycle"
-        android:title="清除缓存"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
 </menu>

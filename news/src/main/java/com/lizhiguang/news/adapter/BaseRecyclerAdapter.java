@@ -11,51 +11,64 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lizhiguang.news.R;
-import com.lizhiguang.news.bean.NewsShortDetail;
+import com.lizhiguang.news.util.LogUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lizhiguang on 2017/4/17.
+ * Created by lizhiguang on 2017/5/2.
  */
 
-public class RecyclerAdapter extends RecyclerView.Adapter {
+public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     public static final int MODE_NORMAL = 0;
     public static final int MODE_FALL = 1;
     private Context mContext;
     private int mode = MODE_NORMAL;
-    private List<NewsShortDetail> datas;
-    private List<Integer> mHeights;
+    private List<T> data;
     private View.OnClickListener mListener;
+    private boolean showText = true;
+    private int mBasicHeight = 0;
 
-    public RecyclerAdapter(Context context, View.OnClickListener listener) {
+    BaseRecyclerAdapter(Context context, View.OnClickListener listener) {
         mContext = context;
         mListener = listener;
     }
 
-    public void setData(List<NewsShortDetail> details) {
-        mHeights = new ArrayList<>(details.size());
-        for (int i = 0; i < details.size(); i++) {
-            mHeights.add((int) (Math.random() * 300 + 200));
-        }
-        datas = details;
+    public void showText(boolean show) {
+        showText = show;
+    }
+
+    public void setData(List<T> details) {
+        data = details;
     }
 
     public void setMode(int mode) {
         this.mode = mode;
     }
 
-    public void addData(NewsShortDetail data, int position) {
-        datas.add(position, data);
-        mHeights.add(position, (int) (Math.random() * 300 + 200));
+    public void addData(T data, int position) {
+        this.data.add(position, data);
         notifyItemInserted(position);
     }
 
     public void deleteData(int position) {
-        datas.remove(position);
-        mHeights.remove(position);
+        data.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public T getItemData(int position) {
+        if (position < data.size())
+            return data.get(position);
+        else
+            return null;
+    }
+
+    @Override
+    public int getItemCount() {
+        if (data != null)
+            return data.size();
+        else
+            return 0;
     }
 
     @Override
@@ -66,25 +79,34 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         } else {
             view = LayoutInflater.from(mContext).inflate(R.layout.news_recycler_linear_item, parent, false);
         }
-        MyHolder holder = new MyHolder(view, mode);
-//        parent.addView(view);
-//        LogUtil.d("p="+view.getParent());
+        BaseRecyclerAdapter.MyHolder holder = new BaseRecyclerAdapter.MyHolder(view, mode);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((MyHolder) holder).tv.setText(datas.get(position).getTitle());
+        String tag = getTagInPosition(position);
+        ((BaseRecyclerAdapter.MyHolder) holder).tv.setText(getTitleInPosition(position));
+        ((BaseRecyclerAdapter.MyHolder) holder).tv.setTag(tag);
+        ((BaseRecyclerAdapter.MyHolder) holder).tv.setOnClickListener(mListener);
         if (mode == MODE_FALL) {
             ViewGroup.LayoutParams lp = ((MyHolder) holder).itemView.getLayoutParams();
-            lp.height = mHeights.get(position);
-            ((MyHolder) holder).itemView.setLayoutParams(lp);
+            if (mBasicHeight == 0)
+                mBasicHeight = lp.height;
+            lp.height = mBasicHeight+ tag.hashCode() % 200;
+            LogUtil.d("height="+lp.height);
+            ((MyHolder)holder).itemView.setLayoutParams(lp);
+            Glide.with(mContext).load(getImgInPosition(position))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().into(((BaseRecyclerAdapter.MyHolder) holder).iv);
         }
-        ((MyHolder) holder).tv.setTag(datas.get(position).getUrl());
-        ((MyHolder) holder).tv.setOnClickListener(mListener);
-        Glide.with(mContext).load(datas.get(position).getPath())
-                .diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().into(((MyHolder) holder).iv);
+        else
+            Glide.with(mContext).load(getImgInPosition(position))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().into(((BaseRecyclerAdapter.MyHolder) holder).iv);
     }
+
+    abstract String getTitleInPosition(int position);
+    abstract String getTagInPosition(int position);
+    abstract String getImgInPosition(int position);
 
     class MyHolder extends RecyclerView.ViewHolder {
         TextView tv;
@@ -100,21 +122,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                 iv = (ImageView) itemView.findViewById(R.id.news_recycle_linear_item_image);
             }
             tv.getPaint().setFakeBoldText(true);
+            if (!showText)
+                tv.setVisibility(View.GONE);
         }
     }
 
-    public NewsShortDetail getItemData(int position) {
-        if (position < datas.size())
-            return datas.get(position);
-        else
-            return null;
-    }
-
-    @Override
-    public int getItemCount() {
-        if (datas != null)
-            return datas.size();
-        else
-            return 0;
-    }
 }

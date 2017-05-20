@@ -1,4 +1,4 @@
-package com.lizhiguang.news.util;
+package com.lizhiguang.news.util.glide;
 
 /**
  * Created by lizhiguang on 2017/4/21.

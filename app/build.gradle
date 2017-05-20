@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    repositories {  
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 dependencies {
@@ -26,9 +31,11 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile project(':news')
 
-    //LeakCanary https://github.com/square/leakcanary
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile(name:'straightenhouse-1.0', ext:'aar')
+
+//    LeakCanary https://github.com/square/leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-
 }

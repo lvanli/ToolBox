@@ -8,11 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lizhiguang.news.R;
 import com.lizhiguang.news.bean.NewsShortDetail;
-import com.lizhiguang.news.util.GrayscaleTransformation;
-import com.lizhiguang.news.util.LogUtil;
 
 import java.util.List;
 
@@ -48,8 +45,8 @@ public class CarouselPagerAdapter extends PagerAdapter {
         imageButton.setTag(R.id.tag_first, details.get(position % details.size()).getUrl());
         imageButton.setOnClickListener(mListener);
         container.addView(imageButton, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        Glide.with(mContext).load(details.get(position%details.size()).getPath()).bitmapTransform(new GrayscaleTransformation(mContext)).override(container.getMeasuredWidth(),container.getMeasuredHeight()).centerCrop().into(imageButton);
-        Glide.with(mContext).load(details.get(position % details.size()).getPath()).into(imageButton);
+//        Glide.with(mContext).load(details.get(position%details.size()).getImagePath()).bitmapTransform(new GrayscaleTransformation(mContext)).override(container.getMeasuredWidth(),container.getMeasuredHeight()).centerCrop().into(imageButton);
+        Glide.with(mContext).load(details.get(position % details.size()).getImagePath()).into(imageButton);
         return imageButton;
     }
 

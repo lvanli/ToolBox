@@ -36,7 +36,7 @@ public class NewsShortRequest extends BaseRequest<List<NewsShortDetail>> {
                     object = array.getJSONObject(i);
                     if (object.containsKey("images") && object.containsKey("title") && object.containsKey("id")) {
                         NewsShortDetail detail = new NewsShortDetail();
-                        detail.setPath(object.getJSONArray("images").getString(0));
+                        detail.setImagePath(object.getJSONArray("images").getString(0));
                         detail.setTitle(object.getString("title"));
                         detail.setUrl(NEWS_PRE + object.getIntValue("id"));
                         detail.setTop(false);
@@ -51,7 +51,7 @@ public class NewsShortRequest extends BaseRequest<List<NewsShortDetail>> {
                     object = array.getJSONObject(i);
                     if (object.containsKey("image") && object.containsKey("title") && object.containsKey("id")) {
                         NewsShortDetail detail = new NewsShortDetail();
-                        detail.setPath(object.getString("image"));
+                        detail.setImagePath(object.getString("image"));
                         detail.setTitle(object.getString("title"));
                         detail.setUrl(NEWS_PRE + object.getIntValue("id"));
                         detail.setTop(true);

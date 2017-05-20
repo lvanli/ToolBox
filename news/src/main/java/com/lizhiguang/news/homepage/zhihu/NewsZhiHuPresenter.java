@@ -1,6 +1,4 @@
-package com.lizhiguang.news.homepage;
-
-import android.os.SystemClock;
+package com.lizhiguang.news.homepage.zhihu;
 
 import com.lizhiguang.news.bean.NewsShortDetail;
 import com.lizhiguang.news.resource.NewsResource;
@@ -17,18 +15,18 @@ import java.util.List;
  * Created by lizhiguang on 2017/4/5.
  */
 
-public class NewsHomePagerPresenter implements NewsResource.OnNewsShortListener {
+public class NewsZhiHuPresenter implements NewsResource.OnNewsShortListener {
     private NewsResource mDataResource;
-    private NewsFirstFragment mView;
+    private NewsZhiHuFragment mView;
     private Date mDate;
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 
-    public NewsHomePagerPresenter setResource(NewsResource resource) {
+    public NewsZhiHuPresenter setResource(NewsResource resource) {
         mDataResource = resource;
         return this;
     }
 
-    public void setView(NewsFirstFragment firstFragment) {
+    public void setView(NewsZhiHuFragment firstFragment) {
         mView = firstFragment;
     }
 

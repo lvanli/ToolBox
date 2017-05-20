@@ -1,4 +1,4 @@
-package com.lizhiguang.news.recyclerViewUtil;
+package com.lizhiguang.news.util.recycler;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

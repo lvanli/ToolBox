@@ -12,15 +12,15 @@ import com.lizhiguang.news.resource.NewsResourceFromZhiHu;
 import com.lizhiguang.news.util.LogUtil;
 import com.lizhiguang.news.util.cache.FileCacheUtil;
 
-public class NewsShowDetailActivity extends AppCompatActivity {
+public class NewsShowHtmlActivity extends AppCompatActivity {
     WebView webView;
     String url;
-    NewsShowDetailPresenter mPresenter;
+    NewsShowHtmlPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_show_detail);
+        setContentView(R.layout.activity_news_show_html);
         LogUtil.d("intent=" + getIntent());
         init(getIntent());
     }
@@ -53,7 +53,7 @@ public class NewsShowDetailActivity extends AppCompatActivity {
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        mPresenter = new NewsShowDetailPresenter(this, new NewsResourceFromZhiHu(this));
+        mPresenter = new NewsShowHtmlPresenter(this, new NewsResourceFromZhiHu(this));
     }
 
     public void showDetail(String detail) {

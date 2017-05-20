@@ -34,6 +34,9 @@ public class LogUtil {
         String fullClassName = stackTraceElement[currentIndex].getClassName();
         String className = fullClassName.substring(fullClassName
                 .lastIndexOf(".") + 1);
+        if (className.contains("$")) {
+            className = className.substring(0,className.indexOf("$"));
+        }
         String methodName = stackTraceElement[currentIndex].getMethodName();
         String lineNumber = String
                 .valueOf(stackTraceElement[currentIndex].getLineNumber());
