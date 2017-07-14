@@ -5,8 +5,8 @@
         <image>img2.jpg</image>
     </information>
     <information count="2">
-        <name>CountDown19</name>
-        <action>com.lizhiguang.action.COUNTDOWNACTIVITY</action>
+        <name>论坛</name>
+        <action>com.lizhiguang.action.ONLINEFORM</action>
         <image>img2.jpg</image>
     </information>
     <information count="3">

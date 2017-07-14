@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.lizhiguang.administrator.toolbox.R;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -65,6 +66,7 @@ public class LauncherActivity extends AppCompatActivity {
             MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments);
             mainPager.addOnPageChangeListener(new ViewPagerIndicator(this, mainPager, (LinearLayout) findViewById(R.id.launcherPagerIndicator), adapter.getCount()));
             mainPager.setAdapter(adapter);
+			CrashReport.initCrashReport(getApplicationContext(),"838a157d26",false);
             return;
         }
         Toast.makeText(this, "初始化失败", Toast.LENGTH_SHORT).show();

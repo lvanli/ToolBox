@@ -33,7 +33,9 @@ dependencies {
     compile project(':musiclib')
 
     compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.android.support:cardview-v7:25.3.1'
     compile(name:'straightenhouse-1.0', ext:'aar')
+    compile(name:'onlineforum-1.0', ext:'aar')
 
 //    LeakCanary https://github.com/square/leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
