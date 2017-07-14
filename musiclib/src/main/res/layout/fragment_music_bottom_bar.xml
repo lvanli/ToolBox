@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- height设置有问题 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_gravity="bottom"
+    android:background="#2c2c2c"
+    android:clickable="false"
+    android:descendantFocusability="afterDescendants"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <SeekBar
+        android:id="@+id/music_bottom_seek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="2dp"
+        android:minHeight="2dp"
+        android:progressDrawable="@drawable/music_seekbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/music_bottom_title"
+            style="@style/textViewWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:ellipsize="end"
+            android:hint="歌曲名"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/music_bottom_artist"
+            style="@style/secondTextViewWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/music_bottom_title"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/music_bottom_title"
+            android:ellipsize="end"
+            android:hint="歌手"
+            android:maxLines="1" />
+
+
+        <Button
+            android:id="@+id/music_bottom_prev"
+            style="@style/BottomActionBarItem"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/music_bottom_play"
+            android:layout_toStartOf="@+id/music_bottom_play"
+            android:background="@drawable/bt_playpage_previous" />
+
+        <ToggleButton
+            android:id="@+id/music_bottom_play"
+            style="@style/BottomActionBarItem"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/music_bottom_next"
+            android:layout_toStartOf="@+id/music_bottom_next"
+            android:background="@drawable/playtoggle_btn_selector"
+            android:textOff=""
+            android:textOn="" />
+
+        <Button
+            android:id="@+id/music_bottom_next"
+            style="@style/BottomActionBarItem"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bt_playpage_next" />
+
+    </RelativeLayout>
+
+</LinearLayout>

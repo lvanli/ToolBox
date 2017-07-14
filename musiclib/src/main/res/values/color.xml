@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="music_main_color">#770088</color>
+    <color name="transparent">#00000000</color>
+    <color name="primary">#9C27B0</color>
+    <color name="white">#FFFFFF</color>
+    <color name="primary_text_white">#fdfdfe</color>
+    <color name="secondary_text_white">@color/abc_secondary_text_material_dark</color>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/music_main_drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/music_main_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1" />
+
+        <fragment
+            android:id="@+id/music_bottom_bar"
+            android:name="com.example.musiclib.ui.fragment.MusicBottomBarFragment"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:descendantFocusability="beforeDescendants" />
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/music_nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/music_nav_header_main"
+        app:menu="@menu/music_main_drawer" />
+</android.support.v4.widget.DrawerLayout>

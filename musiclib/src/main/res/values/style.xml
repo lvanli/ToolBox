@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!--bottom bar-->
+    <style name="textViewWhite" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/primary_text_white</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="secondTextViewWhite">
+        <item name="android:textColor">@color/secondary_text_white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BottomActionBarItem">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+</resources>
