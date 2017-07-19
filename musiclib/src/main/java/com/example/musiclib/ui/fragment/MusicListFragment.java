@@ -28,6 +28,10 @@ public class MusicListFragment extends BaseFragment implements AdapterView.OnIte
     private ListView mMusicList;
     private MusicListAdapter mListAdapter;
 
+    public MusicListFragment() {
+        super();
+    }
+
     public MusicListFragment(Context context) {
         super(context);
     }

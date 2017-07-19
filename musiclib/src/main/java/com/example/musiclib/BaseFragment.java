@@ -15,6 +15,8 @@ public abstract class BaseFragment extends Fragment {
     protected Context mContext;
     protected BasePresenter mPresenter;
 
+    public BaseFragment(){}
+
     public BaseFragment(Context context) {
         mContext = context;
     }
@@ -29,6 +31,14 @@ public abstract class BaseFragment extends Fragment {
         mPresenter = presenter;
         mPresenter.setView(this);
         return this;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (getActivity() != null) {
+            mContext = getActivity();
+        }
     }
 
     public abstract void updateData(Object o);

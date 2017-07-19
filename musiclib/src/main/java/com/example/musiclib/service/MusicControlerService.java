@@ -149,6 +149,8 @@ public class MusicControlerService extends Service implements MediaPlayer.OnComp
 
         @Override
         public void seekTo(int mesc) throws RemoteException {
+            if (musicList == null || musicList.size() <= 0)
+                return;
             mp.seekTo(mesc);
         }
 
@@ -177,11 +179,15 @@ public class MusicControlerService extends Service implements MediaPlayer.OnComp
 
         @Override
         public int getPlayingSongIndex() throws RemoteException {
+            if (musicList == null || musicList.size() <= 0)
+                return -1;
             return musicPlayList.get(musicIndex);
         }
 
         @Override
         public AbstractMusic getNowPlayingSong() throws RemoteException {
+            if (musicList == null || musicList.size() <= 0)
+                return null;
             return musicList.get(musicPlayList.get(musicIndex));
         }
 
@@ -197,12 +203,16 @@ public class MusicControlerService extends Service implements MediaPlayer.OnComp
 
         @Override
         public void preSong() throws RemoteException {
+            if (musicList == null || musicList.size() <= 0)
+                return;
             musicIndex = (musicIndex - 1) % musicList.size();
             prepareSong(musicList.get(musicPlayList.get(musicIndex)));
         }
 
         @Override
         public void randomSong() throws RemoteException {
+            if (musicList == null || musicList.size() <= 0)
+                return;
             musicIndex = new Random().nextInt(musicList.size());
             prepareSong(musicList.get(musicPlayList.get(musicIndex)));
         }
@@ -458,6 +468,8 @@ public class MusicControlerService extends Service implements MediaPlayer.OnComp
     }
 
     private void next(boolean auto) {
+        if (musicList == null || musicList.size() <= 0)
+            return;
         if (!auto || mPlayMode != PLAY_MODE_SINGLE) {
             musicIndex = (musicIndex + 1) % musicList.size();
         }

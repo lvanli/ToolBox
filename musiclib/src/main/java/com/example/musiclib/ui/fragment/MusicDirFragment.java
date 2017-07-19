@@ -24,6 +24,10 @@ public class MusicDirFragment extends BaseFragment {
     private ListView mListView;
     private MusicDirListAdapter mDirAdapter;
 
+    public MusicDirFragment(){
+        super();
+    }
+
     public MusicDirFragment(Context context) {
         super(context);
     }
