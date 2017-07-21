@@ -101,6 +101,15 @@ public class NewsZhiHuFragment extends Fragment implements View.OnClickListener 
         mPresenter.start();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mRecyclerView != null) {
+            mRecyclerView.completeLoad();
+            mRecyclerView.completeRefresh();
+        }
+    }
+
     public void showMainPictures(final List<NewsShortDetail> pictures) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
