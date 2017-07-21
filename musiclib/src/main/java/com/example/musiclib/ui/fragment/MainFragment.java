@@ -40,6 +40,7 @@ public class MainFragment extends Fragment implements LocalBroadcastDefine, Data
     private ProgressBar loading;
     private ViewPager pager;
     private MainPagerAdapter mAdapter;
+    private BroadcastReceiver receiver;
 
     @Nullable
     @Override
@@ -82,19 +83,15 @@ public class MainFragment extends Fragment implements LocalBroadcastDefine, Data
             }
         });
         tabLayout.setupWithViewPager(pager);
-
-        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(INTENT_RELOAD)) {
-                    loading.setVisibility(View.GONE);
-                    pager.setVisibility(View.VISIBLE);
-                    for (int i = 0; i < mFragments.size(); i++)
-                        mFragments.get(i).reload();
-                }
-            }
-        }, new IntentFilter(INTENT_RELOAD));
+        receiver = new MyReceiver();
+        LocalBroadcastManager.getInstance(context).registerReceiver(receiver, new IntentFilter(INTENT_RELOAD));
         DatabaseUtil.getInfo(context, this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(receiver);
     }
 
     public void showToast(String msg) {
@@ -112,6 +109,18 @@ public class MainFragment extends Fragment implements LocalBroadcastDefine, Data
             LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(INTENT_RELOAD));
         } else {
             LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(INTENT_SEARCH_ERROR));
+        }
+    }
+
+    private class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(INTENT_RELOAD)) {
+                loading.setVisibility(View.GONE);
+                pager.setVisibility(View.VISIBLE);
+                for (int i = 0; i < mFragments.size(); i++)
+                    mFragments.get(i).reload();
+            }
         }
     }
 }
