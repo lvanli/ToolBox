@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="com.example.musiclib.service.MusicControlerService"
+            android:name="com.example.musiclib.service.MusicControlService"
             android:process=":remote">
             <intent-filter>
                 <action android:name="com.example.musiclib.service.MusicControlerService" />

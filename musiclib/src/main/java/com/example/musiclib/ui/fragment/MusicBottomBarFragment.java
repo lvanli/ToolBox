@@ -44,7 +44,7 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine 
             switch (action) {
                 case PLAY_STATUS_UPDATE:
                     boolean isPlaying = intent.getBooleanExtra("isPlaying", false);
-                    mPlay.setChecked(LocalMusicManager.getInstance().isPlaying());
+                    mPlay.setChecked(isPlaying);
                     break;
                 case PLAYBAR_UPDATE:
                     AbstractMusic music = LocalMusicManager.getInstance().getNowPlayingSong();

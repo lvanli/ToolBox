@@ -32,8 +32,6 @@ interface IMusicControlerService {
 
     AbstractMusic getNowPlayingSong();
 
-    boolean isForeground();
-
     void nextSong();
 
     void preSong();

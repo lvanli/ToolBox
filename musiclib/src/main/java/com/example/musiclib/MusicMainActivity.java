@@ -33,7 +33,7 @@ import com.example.musiclib.audioFocus.RemoteControlReceiver;
 import com.example.musiclib.bean.AbstractMusic;
 import com.example.musiclib.defines.LocalBroadcastDefine;
 import com.example.musiclib.proxy.LocalMusicManager;
-import com.example.musiclib.service.MusicControlerService;
+import com.example.musiclib.service.MusicControlService;
 import com.example.musiclib.ui.fragment.MainFragment;
 import com.example.musiclib.util.DatabaseUtil;
 import com.example.musiclib.util.DialogUtil;
@@ -92,7 +92,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
 
         if (!isServiceBinding) {
             Log.i(TAG, "start binding service");
-            Intent intent = new Intent(this, MusicControlerService.class);
+            Intent intent = new Intent(this, MusicControlService.class);
             bindService(intent, mConnection, BIND_AUTO_CREATE);
         }
         IntentFilter filter = new IntentFilter();
@@ -109,6 +109,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unbindService(mConnection);
         abandonAudioFocus();
     }
 
@@ -200,7 +201,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             getPermission();
         if (!isServiceBinding) {
-            Intent intent = new Intent(this, MusicControlerService.class);
+            Intent intent = new Intent(this, MusicControlService.class);
             startService(intent);
 
             bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
