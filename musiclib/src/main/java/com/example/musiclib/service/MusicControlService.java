@@ -18,7 +18,6 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -50,7 +49,6 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
     NotificationManager mNotificationManager;
     Notification mNotification;
     RemoteViews reViews;
-    private String TAG = "MusicControlService";
     private int musicIndex = -1;
     private List<AbstractMusic> musicList;
     private List<Integer> musicPlayList;
@@ -66,7 +64,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                     Intent intent = new Intent(CURRENT_UPDATE);
                     if (mp.isPlaying()) {
                         int currentTime = mp.getCurrentPosition();
-                        Log.i("currentTime", currentTime + "");
+                        LogUtil.i(currentTime + "");
                         intent.putExtra("currentTime", currentTime);
                         sendBroadcast(intent);
 
@@ -100,9 +98,9 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                 //准备播放源，准备后播放
                 AbstractMusic music = mBinder.getNowPlayingSong();
 
-                Log.i(TAG, "play()->" + music.title);
+                LogUtil.i("play()->" + music.title);
                 if (!mp.isPlaying()) {
-                    Log.i(TAG, "Enterplay()");
+                    LogUtil.i("Enterplay()");
                     mp.start();
                     updatePlayStatus(true);
                 }
@@ -143,7 +141,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
             musicPlayList = new ArrayList<>(musicList.size());
             reloadPlayIndex();
 
-            Log.d(TAG, "musicList:" + list + " musicIndex:" + index + "now title:" + ((AbstractMusic) list.get(index)).title);
+            LogUtil.d("musicList:" + list + " musicIndex:" + index + "now title:" + ((AbstractMusic) list.get(index)).title);
 
             if (musicList == null || musicList.size() == 0) {
                 Toast.makeText(getBaseContext(), "播放列表为空", Toast.LENGTH_LONG).show();
@@ -276,7 +274,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
             Method setsubtitleanchor = mediaplayer.getClass().getMethod("setSubtitleAnchor", cSubtitleController, iSubtitleControllerAnchor);
 
             setsubtitleanchor.invoke(mediaplayer, subtitleInstance, null);
-            //Log.e("", "subtitle is setted :p");
+            //LogUtil.e("", "subtitle is setted :p");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -334,12 +332,13 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         filter.addAction(PRE_SONG);
         filter.addAction(NEXT_SONG);
         filter.addAction(PLAY_OR_PAUSE);
+        LogUtil.d("registerReceiver");
         registerReceiver(controlReceiver, filter);
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        Log.i(TAG, "mBinder:" + mBinder);
+        LogUtil.i("mBinder:" + mBinder);
         return mBinder;
     }
 
@@ -354,6 +353,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         stopForeground(true);
         mNotificationManager.cancel(NT_PLAYBAR_ID);
 
+        LogUtil.d("unregisterReceiver");
         unregisterReceiver(controlReceiver);
         super.onDestroy();
     }
@@ -370,7 +370,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
      * @param music 音乐
      */
     private void prepareSong(AbstractMusic music) {
-        Log.d(TAG, "prepareSong music:" + music.name);
+        LogUtil.d("prepareSong music:" + music.name);
 
         showMusicPlayerNotification(music);
 
@@ -397,13 +397,13 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         try {
             if (mp != null) {
                 mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                Log.i(TAG, "datasoure:" + music.path);
+                LogUtil.i("datasoure:" + music.path);
                 mp.setDataSource(music.path);
                 mp.prepare();
-                handler.sendEmptyMessage(MSG_CURRENT);
                 mp.start();
+                handler.sendEmptyMessage(MSG_CURRENT);
             } else
-                Log.e(TAG, "play mp=null!");
+                LogUtil.e("play mp=null!");
         } catch (Exception e) {
             e.printStackTrace();
         }
