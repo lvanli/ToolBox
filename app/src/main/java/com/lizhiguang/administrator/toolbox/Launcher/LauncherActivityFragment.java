@@ -66,22 +66,24 @@ public class LauncherActivityFragment extends Fragment implements View.OnClickLi
         TableRow row = null;
         TableLayout.LayoutParams defaultL = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1);
         int i;
-        for (i = 0; i < appInfos.size(); i++) {
+        for (i = 0; i < 16; i++) {
             if (i % 4 == 0) {
                 row = new TableRow(mContext);
                 row.setLayoutParams(defaultL);
                 row.setWeightSum(4);
             }
-            BasicPermanentIcon icon = new BasicPermanentIcon(mContext);
-            icon.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
-            icon.setOnClickListener(this);
-            icon.setTag(appInfos.get(i).getAction());
-            icon.setImgPath(appInfos.get(i).getImageUrl());
-            icon.setDescribe(appInfos.get(i).getName());
-            TextView view = new TextView(mContext);
-            view.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-            view.setText(appInfos.get(i).getName());
-            row.addView(icon);
+            if (i < appInfos.size()) {
+                BasicPermanentIcon icon = new BasicPermanentIcon(mContext);
+                icon.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                icon.setOnClickListener(this);
+                icon.setTag(appInfos.get(i).getAction());
+                icon.setImgPath(appInfos.get(i).getImageUrl());
+                icon.setDescribe(appInfos.get(i).getName());
+                TextView view = new TextView(mContext);
+                view.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+                view.setText(appInfos.get(i).getName());
+                row.addView(icon);
+            }
             if (i % 4 == 3)
                 mainLayout.addView(row);
         }
