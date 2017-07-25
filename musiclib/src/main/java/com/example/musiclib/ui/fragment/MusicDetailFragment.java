@@ -12,27 +12,29 @@ import android.widget.ListView;
 import com.example.musiclib.BaseFragment;
 import com.example.musiclib.R;
 import com.example.musiclib.bean.AbstractMusic;
+import com.example.musiclib.bean.LocalMusicInfo;
 import com.example.musiclib.proxy.LocalMusicManager;
 import com.example.musiclib.ui.adapter.MusicListAdapter;
 import com.example.musiclib.util.SettingUtil;
 import com.example.musiclib.util.runnable.Runnable1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by lizhiguang on 2017/7/11.
  */
 
-public class MusicListFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class MusicDetailFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     private ListView mMusicList;
     private MusicListAdapter mListAdapter;
 
-    public MusicListFragment() {
+    public MusicDetailFragment() {
         super();
     }
 
-    public MusicListFragment(Context context) {
+    public MusicDetailFragment(Context context) {
         super(context);
     }
 
@@ -61,7 +63,6 @@ public class MusicListFragment extends BaseFragment implements AdapterView.OnIte
 
     @Override
     public void reload() {
-        mPresenter.reload();
     }
 
     @Nullable
@@ -75,7 +76,6 @@ public class MusicListFragment extends BaseFragment implements AdapterView.OnIte
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.start();
     }
 
     private void init(View view) {
@@ -83,11 +83,20 @@ public class MusicListFragment extends BaseFragment implements AdapterView.OnIte
         mListAdapter = new MusicListAdapter(mContext);
         mMusicList.setAdapter(mListAdapter);
         mMusicList.setOnItemClickListener(this);
+        if (mAllMusic != null) {
+            mListAdapter.setData(mAllMusic);
+        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         LocalMusicManager.getInstance().setMode(SettingUtil.getInt(mContext, SettingUtil.SETTING_PLAY_MODE));
         mPresenter.playMusicList(mListAdapter.getData(), position);
+    }
+
+    private List<AbstractMusic> mAllMusic;
+    public MusicDetailFragment setData(List<AbstractMusic> musics)  {
+        mAllMusic = musics;
+        return this;
     }
 }

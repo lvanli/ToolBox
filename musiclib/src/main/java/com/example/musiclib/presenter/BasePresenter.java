@@ -1,7 +1,7 @@
 package com.example.musiclib.presenter;
 
 import com.example.musiclib.BaseFragment;
-import com.example.musiclib.bean.LocalMusicInfo;
+import com.example.musiclib.bean.AbstractMusic;
 import com.example.musiclib.proxy.LocalMusicManager;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public abstract class BasePresenter {
 
     public abstract void reload();
 
-    public void playMusicList(List<LocalMusicInfo> infos, int position) {
+    public void playMusicList(List<AbstractMusic> infos, int position) {
         mMusicManager.preparePlayingList(infos, position);
     }
 }

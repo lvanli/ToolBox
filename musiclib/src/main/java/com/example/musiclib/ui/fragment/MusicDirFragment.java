@@ -3,15 +3,19 @@ package com.example.musiclib.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.musiclib.BaseFragment;
 import com.example.musiclib.R;
-import com.example.musiclib.bean.LocalMusicInfo;
+import com.example.musiclib.bean.AbstractMusic;
+import com.example.musiclib.presenter.MusicListPresenter;
 import com.example.musiclib.ui.adapter.MusicDirListAdapter;
+import com.example.musiclib.util.LogUtil;
 import com.example.musiclib.util.runnable.Runnable1;
 
 import java.util.List;
@@ -20,7 +24,7 @@ import java.util.List;
  * Created by lizhiguang on 2017/7/11.
  */
 
-public class MusicDirFragment extends BaseFragment {
+public class MusicDirFragment extends BaseFragment implements AdapterView.OnItemClickListener {
     private ListView mListView;
     private MusicDirListAdapter mDirAdapter;
 
@@ -44,6 +48,7 @@ public class MusicDirFragment extends BaseFragment {
         mListView = (ListView) view.findViewById(R.id.music_dir_list_view);
         mDirAdapter = new MusicDirListAdapter(mContext);
         mListView.setAdapter(mDirAdapter);
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -63,7 +68,7 @@ public class MusicDirFragment extends BaseFragment {
             mListView.post(new Runnable1<Object>(o) {
                 @Override
                 public void run() {
-                    mDirAdapter.setData((List<List<LocalMusicInfo>>) mP1);
+                    mDirAdapter.setData((List<List<AbstractMusic>>) mP1);
                     mDirAdapter.notifyDataSetChanged();
                 }
             });
@@ -75,4 +80,13 @@ public class MusicDirFragment extends BaseFragment {
         mPresenter.reload();
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (getActivity() != null) {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.addToBackStack("MusicDetailFragment");
+            transaction.replace(R.id.music_main_fragment,new MusicDetailFragment(mContext).setData(mDirAdapter.getItem(position)).setPresenter(new MusicListPresenter()));
+            transaction.commit();
+        }
+    }
 }

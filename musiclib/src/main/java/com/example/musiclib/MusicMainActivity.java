@@ -25,6 +25,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -49,8 +50,9 @@ import java.util.List;
 public class MusicMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LocalBroadcastDefine, ScanfMusicUtil.ScanResultCallback, DirChoiceUtil.DirResultCallback {
     private static final String TAG = "MusicMainActivity";
     private DrawerLayout drawer;
+    private NavigationView navigationView;
     private MainFragment mainFragment;
-    private IMusicControlerService musicControler;
+    private IMusicControlService musicControl;
     private boolean isServiceBinding;
     private AudioManager mAudioManager;
     private ComponentName mRemoteComponentName;
@@ -62,15 +64,15 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             Log.i(TAG, "onServiceConnected");
             isServiceBinding = true;
-            musicControler = IMusicControlerService.Stub.asInterface(iBinder);
-            LocalMusicManager.getInstance().setControler(musicControler);
+            musicControl = IMusicControlService.Stub.asInterface(iBinder);
+            LocalMusicManager.getInstance().setControler(musicControl);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             LocalMusicManager.getInstance().setControler(null);
             isServiceBinding = false;
-            musicControler = null;
+            musicControl = null;
         }
     };
 
@@ -82,7 +84,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void init() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.music_nav_view);
+        navigationView = (NavigationView) findViewById(R.id.music_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         drawer = (DrawerLayout) findViewById(R.id.music_main_drawer);
         mainFragment = new MainFragment();
@@ -209,9 +211,24 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            drawer.openDrawer(navigationView);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        moveTaskToBack(true);
+        if (drawer.isDrawerOpen(navigationView)) {
+            drawer.closeDrawers();
+        }
+        else if(getSupportFragmentManager().getBackStackEntryCount()!=0){
+            getSupportFragmentManager().popBackStack();
+        } else {
+            moveTaskToBack(true);
+        }
     }
 
     @Override
@@ -234,6 +251,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
             return true;
         } else if (item.getItemId() == R.id.music_nav_select_dir) {
             DirChoiceUtil.openChoiceDialog(this, this);
+            return true;
         } else if (item.getItemId() == R.id.music_nav_select_circle) {
             DialogUtil.showSelectDialog(this, new String[]{"循环播放", "单曲播放", "随机播放"}, new DialogInterface.OnClickListener() {
                 @Override
@@ -243,6 +261,10 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
                     LocalMusicManager.getInstance().setMode(which);
                 }
             });
+            return true;
+        } else if (item.getItemId() == R.id.music_nav_exit) {
+            finish();
+            return true;
         }
         return false;
     }

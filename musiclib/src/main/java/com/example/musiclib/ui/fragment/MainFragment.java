@@ -84,7 +84,10 @@ public class MainFragment extends Fragment implements LocalBroadcastDefine, Data
         });
         tabLayout.setupWithViewPager(pager);
         receiver = new MyReceiver();
-        LocalBroadcastManager.getInstance(context).registerReceiver(receiver, new IntentFilter(INTENT_RELOAD));
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(INTENT_SEARCH_ERROR);
+        filter.addAction(INTENT_RELOAD);
+        LocalBroadcastManager.getInstance(context).registerReceiver(receiver,filter);
         DatabaseUtil.getInfo(context, this);
     }
 
@@ -115,8 +118,8 @@ public class MainFragment extends Fragment implements LocalBroadcastDefine, Data
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            loading.setVisibility(View.GONE);
             if (intent.getAction().equals(INTENT_RELOAD)) {
-                loading.setVisibility(View.GONE);
                 pager.setVisibility(View.VISIBLE);
                 for (int i = 0; i < mFragments.size(); i++)
                     mFragments.get(i).reload();

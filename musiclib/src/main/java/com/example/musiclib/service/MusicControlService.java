@@ -22,7 +22,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.example.musiclib.IMusicControlerService;
+import com.example.musiclib.IMusicControlService;
 import com.example.musiclib.MusicMainActivity;
 import com.example.musiclib.R;
 import com.example.musiclib.bean.AbstractMusic;
@@ -74,7 +74,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
             }
         }
     };
-    private IMusicControlerService.Stub mBinder = new IMusicControlerService.Stub() {
+    private IMusicControlService.Stub mBinder = new IMusicControlService.Stub() {
         @Override
         public int getPid() throws RemoteException {
             return Process.myPid();
@@ -180,7 +180,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         public void preSong() throws RemoteException {
             if (musicList == null || musicList.size() <= 0)
                 return;
-            musicIndex = (musicIndex - 1) % musicList.size();
+            musicIndex = (musicIndex - 1 + musicList.size()) % musicList.size();
             prepareSong(musicList.get(musicPlayList.get(musicIndex)));
         }
 

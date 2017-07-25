@@ -4,5 +4,6 @@
     android:pivotX="50%"
     android:pivotY="50%"
     android:toDegrees="360">
-    <bitmap android:src="@drawable/loading_360" />
+    <bitmap android:src="@drawable/loading_360"
+        android:gravity="center"/>
 </rotate>

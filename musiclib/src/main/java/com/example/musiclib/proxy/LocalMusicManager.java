@@ -2,9 +2,8 @@ package com.example.musiclib.proxy;
 
 import android.os.RemoteException;
 
-import com.example.musiclib.IMusicControlerService;
+import com.example.musiclib.IMusicControlService;
 import com.example.musiclib.bean.AbstractMusic;
-import com.example.musiclib.bean.LocalMusicInfo;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class LocalMusicManager {
     private static LocalMusicManager instance = null;
-    private IMusicControlerService mControler = null;
+    private IMusicControlService mControl = null;
 
     private LocalMusicManager() {
     }
@@ -28,77 +27,77 @@ public class LocalMusicManager {
         return instance;
     }
 
-    public void setControler(IMusicControlerService service) {
-        mControler = service;
+    public void setControler(IMusicControlService service) {
+        mControl = service;
     }
 
-    public void preparePlayingList(List<LocalMusicInfo> infos, int position) {
-        if (mControler != null)
+    public void preparePlayingList(List<AbstractMusic> infos, int position) {
+        if (mControl != null)
             try {
-                mControler.preparePlayingList(position, infos);
+                mControl.preparePlayingList(position, infos);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
     }
 
     public void stop() {
-        if (mControler != null)
+        if (mControl != null)
             try {
-                mControler.stop();
+                mControl.stop();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
     }
 
     public void play() {
-        if (mControler != null)
+        if (mControl != null)
             try {
-                mControler.play();
+                mControl.play();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
     }
 
     public void pause() {
-        if (mControler != null)
+        if (mControl != null)
             try {
-                mControler.pause();
+                mControl.pause();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
     }
 
     public void next() {
-        if (mControler != null)
+        if (mControl != null)
             try {
-                mControler.nextSong();
+                mControl.nextSong();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
     }
 
     public void prev() {
-        if (mControler != null)
+        if (mControl != null)
             try {
-                mControler.preSong();
+                mControl.preSong();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
     }
 
     public void randomSong() {
-        if (mControler != null)
+        if (mControl != null)
             try {
-                mControler.randomSong();
+                mControl.randomSong();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
     }
 
     public boolean isPlaying() {
-        if (mControler != null)
+        if (mControl != null)
             try {
-                return mControler.isPlaying();
+                return mControl.isPlaying();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -106,9 +105,9 @@ public class LocalMusicManager {
     }
 
     public AbstractMusic getNowPlayingSong() {
-        if (mControler != null)
+        if (mControl != null)
             try {
-                return mControler.getNowPlayingSong();
+                return mControl.getNowPlayingSong();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -116,18 +115,18 @@ public class LocalMusicManager {
     }
 
     public void seekTo(int mesc) {
-        if (mControler != null)
+        if (mControl != null)
             try {
-                mControler.seekTo(mesc);
+                mControl.seekTo(mesc);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
     }
 
     public void setMode(int mode) {
-        if (mControler != null)
+        if (mControl != null)
             try {
-                mControler.setMode(mode);
+                mControl.setMode(mode);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

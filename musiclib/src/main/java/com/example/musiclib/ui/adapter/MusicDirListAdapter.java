@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.musiclib.R;
-import com.example.musiclib.bean.LocalMusicInfo;
+import com.example.musiclib.bean.AbstractMusic;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 public class MusicDirListAdapter extends BaseAdapter {
-    private List<List<LocalMusicInfo>> mInfos;
+    private List<List<AbstractMusic>> mInfos;
     private Context mContext;
 
     public MusicDirListAdapter(Context context) {
@@ -30,7 +30,7 @@ public class MusicDirListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public List<AbstractMusic> getItem(int position) {
         return mInfos.get(position);
     }
 
@@ -58,11 +58,11 @@ public class MusicDirListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public List<List<LocalMusicInfo>> getData() {
+    public List<List<AbstractMusic>> getData() {
         return mInfos;
     }
 
-    public void setData(List<List<LocalMusicInfo>> infos) {
+    public void setData(List<List<AbstractMusic>> infos) {
         mInfos = infos;
     }
 

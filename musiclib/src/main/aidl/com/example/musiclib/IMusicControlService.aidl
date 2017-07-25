@@ -5,7 +5,7 @@ import com.example.musiclib.bean.AbstractMusic;
 
 // Declare any non-default types here with import statements
 
-interface IMusicControlerService {
+interface IMusicControlService {
 
 
     int getPid();
