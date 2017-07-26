@@ -87,13 +87,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         String tag = getTagInPosition(position);
         ((BaseRecyclerAdapter.MyHolder) holder).tv.setText(getTitleInPosition(position));
-        ((BaseRecyclerAdapter.MyHolder) holder).tv.setTag(tag);
-        ((BaseRecyclerAdapter.MyHolder) holder).tv.setOnClickListener(mListener);
+        ((BaseRecyclerAdapter.MyHolder) holder).itemView.setTag(tag);
+        ((BaseRecyclerAdapter.MyHolder) holder).itemView.setOnClickListener(mListener);
         if (mode == MODE_FALL) {
             ViewGroup.LayoutParams lp = ((MyHolder) holder).itemView.getLayoutParams();
-            if (mBasicHeight == 0)
-                mBasicHeight = lp.height;
-            lp.height = mBasicHeight+ tag.hashCode() % 200;
+            lp.height = (int)(lp.width * (1.4 + tag.hashCode() % 30 / 100.0));
             LogUtil.d("height="+lp.height);
             ((MyHolder)holder).itemView.setLayoutParams(lp);
             Glide.with(mContext).load(getImgInPosition(position))

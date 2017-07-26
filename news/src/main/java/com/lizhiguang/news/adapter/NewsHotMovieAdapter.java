@@ -22,7 +22,7 @@ public class NewsHotMovieAdapter extends BaseRecyclerAdapter<NewsHotMovies> {
 
     @Override
     String getTagInPosition(int position) {
-        return String.valueOf(getItemData(position).getId());
+        return String.valueOf(getItemData(position).getName());
     }
 
     @Override

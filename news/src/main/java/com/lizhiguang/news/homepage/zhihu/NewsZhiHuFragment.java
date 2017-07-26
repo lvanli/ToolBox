@@ -102,12 +102,18 @@ public class NewsZhiHuFragment extends Fragment implements View.OnClickListener 
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         if (mRecyclerView != null) {
             mRecyclerView.completeLoad();
             mRecyclerView.completeRefresh();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mRecyclerView = null;
     }
 
     public void showMainPictures(final List<NewsShortDetail> pictures) {
@@ -152,7 +158,7 @@ public class NewsZhiHuFragment extends Fragment implements View.OnClickListener 
             intent = new Intent(mContext, NewsShowHtmlActivity.class);
             intent.putExtra("url", (String) view.getTag(R.id.tag_first));
             startActivity(intent);
-        } else if (view instanceof TextView) {
+        } else {
             //shortDetail
             showToast((String) view.getTag());
             intent = new Intent(mContext, NewsShowHtmlActivity.class);
