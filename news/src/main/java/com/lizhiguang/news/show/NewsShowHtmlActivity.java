@@ -1,6 +1,7 @@
 package com.lizhiguang.news.show;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
@@ -52,7 +53,27 @@ public class NewsShowHtmlActivity extends AppCompatActivity {
         webView.getSettings().setAppCacheEnabled(false);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                if(Build.VERSION.SDK_INT >= 19) {
+                    webView.loadUrl("javascript:(function(){"
+                            + "var objs = document.getElementsByTagName('img'); "
+                            + "for(var i=0;i<objs.length;i++) {"
+                            + // //webview图片自适应，android4.4之前都有用，4.4之后google优化后，无法支持，需要自己手动缩放
+                            "if (objs[i].className == \"content-image\")"
+                            + " objs[i].style.width = '100%';objs[i].style.height = 'auto';"
+                            + "}"
+                            + "})()"
+                );
+                } else{
+                    webView.loadUrl("javascript:var imgs = document.getElementsByTagName('img');for(var i = 0; i<imgs.length; i++)" +
+                            "if (imgs[i].className == \"content-image\")" +
+                            "{imgs[i].style.width = '100%';imgs[i].style.height= 'auto';}");
+                }
+            }
+        });
         mPresenter = new NewsShowHtmlPresenter(this, new NewsResourceFromZhiHu(this));
     }
 
