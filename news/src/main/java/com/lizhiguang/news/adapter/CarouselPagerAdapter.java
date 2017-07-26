@@ -3,9 +3,11 @@ package com.lizhiguang.news.adapter;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.lizhiguang.news.R;
@@ -41,13 +43,16 @@ public class CarouselPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ImageButton imageButton = new ImageButton(mContext);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.news_viewpager_item,null);
+        TextView textView = (TextView) view.findViewById(R.id.news_pager_text);
+        textView.setText(details.get(position % details.size()).getTitle());
+        ImageButton imageButton = (ImageButton) view.findViewById(R.id.news_pager_button);
         imageButton.setTag(R.id.tag_first, details.get(position % details.size()).getUrl());
         imageButton.setOnClickListener(mListener);
-        container.addView(imageButton, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 //        Glide.with(mContext).load(details.get(position%details.size()).getImagePath()).bitmapTransform(new GrayscaleTransformation(mContext)).override(container.getMeasuredWidth(),container.getMeasuredHeight()).centerCrop().into(imageButton);
-        Glide.with(mContext).load(details.get(position % details.size()).getImagePath()).into(imageButton);
-        return imageButton;
+        Glide.with(mContext).load(details.get(position % details.size()).getImagePath()).centerCrop().into(imageButton);
+        return view;
     }
 
     @Override
