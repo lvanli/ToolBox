@@ -37,6 +37,7 @@ public class DirChoiceUtil {
         lv = (ListView) view.findViewById(R.id.music_dialog_dir_list);
         path = (TextView) view.findViewById(R.id.music_dialog_dir_path);
         path.setText(file.getPath());
+        adapter = new SimpleListAdapter(context);
 
         String list[] = file.list(new FilenameFilter() {
             @Override
@@ -45,15 +46,14 @@ public class DirChoiceUtil {
                 return new File(dir, name).isDirectory();
             }
         });
-
-        List<String> names = new ArrayList<>(list.length + 1);
-        for (String name : list) {
-            names.add(name);
+        if (list != null) {
+            List<String> names = new ArrayList<>(list.length + 1);
+            for (String name : list) {
+                names.add(name);
+            }
+            Collections.sort(names);
+            adapter.initData(names);
         }
-        Collections.sort(names);
-
-        adapter = new SimpleListAdapter(context);
-        adapter.initData(names);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

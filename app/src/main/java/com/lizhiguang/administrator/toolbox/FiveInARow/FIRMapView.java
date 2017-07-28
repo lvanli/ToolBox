@@ -88,7 +88,7 @@ public class FIRMapView extends View {
             @Override
             public void onWin(int who) {
                 AlertDialog dialog = new AlertDialog.Builder(mContext).create();
-
+				dialog.setCancelable(false);
                 if (who == FIRManager.BLACK)
                     dialog.setMessage("黑子赢");
                 else
@@ -219,7 +219,7 @@ public class FIRMapView extends View {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             int x = (int) (event.getX() / lineHeight);
             int y = (int) (event.getY() / lineHeight);
-            if (mManager.makePoint(x, y, (short) (mWho)) && mManager.getGameMode() == 1)
+            if (x < maxLine && y < maxLine && mManager.makePoint(x, y, (short) (mWho)) && mManager.getGameMode() == 1)
                 mWho = mManager.WRITE + mManager.BLACK - mWho;
             Log.d(BasicActivity.MYDEBUG, "x=" + event.getX() + ",Y=" + event.getY() + ",rx=" + x + ",ry=" + y + ",who=" + mWho);
         }

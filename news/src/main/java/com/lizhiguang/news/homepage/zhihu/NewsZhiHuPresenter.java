@@ -36,8 +36,10 @@ public class NewsZhiHuPresenter implements NewsResource.OnNewsShortListener {
 
     private void init() {
 //        getMainPictures();
-        mDate = new Date(System.currentTimeMillis());//获取当前时间
-        getNews();
+        if (mDate == null) {
+            mDate = new Date(System.currentTimeMillis());//获取当前时间
+            getNews();
+        }
     }
 
     public void getMainPictures() {
