@@ -30,6 +30,7 @@ public class RemoteControlReceiver extends BroadcastReceiver {
                     break;
                 case KeyEvent.KEYCODE_MEDIA_PAUSE:
                     LocalMusicManager.getInstance().stop();
+                    break;
                 case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
                     LocalMusicManager.getInstance().prev();
                     break;
