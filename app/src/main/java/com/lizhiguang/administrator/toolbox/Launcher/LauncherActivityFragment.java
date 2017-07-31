@@ -6,14 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lizhiguang.administrator.toolbox.Basic.BasicPermanentIcon;
 import com.lizhiguang.administrator.toolbox.R;
@@ -93,6 +92,10 @@ public class LauncherActivityFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent((String) v.getTag()));
+        try {
+            startActivity(new Intent((String) v.getTag()));
+        } catch (Exception e) {
+            Toast.makeText(mContext,"未安装",Toast.LENGTH_SHORT).show();
+        }
     }
 }
