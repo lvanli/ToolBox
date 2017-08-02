@@ -125,6 +125,15 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         @Override
         public void stop() throws RemoteException {
             stopForeground(true);
+            if (musicList != null) {
+                reViews.setViewVisibility(R.id.button_play_notification_play, View.VISIBLE);
+                reViews.setViewVisibility(R.id.button_pause_notification_play, View.GONE);
+
+                mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
+                mp.stop();
+                handler.removeMessages(MSG_CURRENT);
+                updatePlayStatus(false);
+            }
         }
 
         @Override

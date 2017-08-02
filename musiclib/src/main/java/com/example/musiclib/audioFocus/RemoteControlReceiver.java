@@ -21,7 +21,7 @@ public class RemoteControlReceiver extends BroadcastReceiver {
             switch (event.getKeyCode()) {
                 case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                     if (LocalMusicManager.getInstance().isPlaying())
-                        LocalMusicManager.getInstance().stop();
+                        LocalMusicManager.getInstance().pause();
                     else
                         LocalMusicManager.getInstance().play();
                     break;
@@ -29,7 +29,7 @@ public class RemoteControlReceiver extends BroadcastReceiver {
                     LocalMusicManager.getInstance().play();
                     break;
                 case KeyEvent.KEYCODE_MEDIA_PAUSE:
-                    LocalMusicManager.getInstance().stop();
+                    LocalMusicManager.getInstance().pause();
                     break;
                 case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
                     LocalMusicManager.getInstance().prev();
