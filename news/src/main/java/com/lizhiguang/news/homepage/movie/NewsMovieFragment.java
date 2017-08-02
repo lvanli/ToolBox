@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.lizhiguang.news.R;
 import com.lizhiguang.news.adapter.NewsHotMovieAdapter;
 import com.lizhiguang.news.bean.NewsHotMovies;
-import com.lizhiguang.news.util.LogUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.util.List;
 

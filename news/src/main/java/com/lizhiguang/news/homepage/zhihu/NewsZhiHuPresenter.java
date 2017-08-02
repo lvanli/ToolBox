@@ -2,7 +2,7 @@ package com.lizhiguang.news.homepage.zhihu;
 
 import com.lizhiguang.news.bean.NewsShortDetail;
 import com.lizhiguang.news.resource.NewsResource;
-import com.lizhiguang.news.util.LogUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lizhiguang.news.R;
@@ -22,7 +21,7 @@ import com.lizhiguang.news.adapter.NewsShortAdapter;
 import com.lizhiguang.news.bean.NewsShortDetail;
 import com.lizhiguang.news.util.recycler.SimpleRefreshHeaderCreator;
 import com.lizhiguang.news.show.NewsShowHtmlActivity;
-import com.lizhiguang.news.util.LogUtil;
+import com.lizhiguang.utils.log.LogUtil;
 import com.mrw.wzmrecyclerview.AutoLoad.AutoLoadRecyclerView;
 import com.mrw.wzmrecyclerview.PullToLoad.OnLoadListener;
 import com.mrw.wzmrecyclerview.PullToRefresh.OnRefreshListener;

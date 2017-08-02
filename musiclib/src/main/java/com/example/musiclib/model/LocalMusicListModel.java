@@ -1,9 +1,9 @@
 package com.example.musiclib.model;
 
 
-import com.example.musiclib.util.LogUtil;
 import com.example.musiclib.util.MemoryCacheUtil;
 import com.example.musiclib.util.ScanfMusicUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.io.File;
 

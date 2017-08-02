@@ -39,10 +39,10 @@ import com.example.musiclib.ui.fragment.MainFragment;
 import com.example.musiclib.util.DatabaseUtil;
 import com.example.musiclib.util.DialogUtil;
 import com.example.musiclib.util.DirChoiceUtil;
-import com.example.musiclib.util.LogUtil;
 import com.example.musiclib.util.MemoryCacheUtil;
 import com.example.musiclib.util.ScanfMusicUtil;
 import com.example.musiclib.util.SettingUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.io.File;
 import java.util.List;

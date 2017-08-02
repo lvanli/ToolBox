@@ -6,7 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.musiclib.bean.AbstractMusic;
 import com.example.musiclib.bean.LocalMusicInfo;
-import com.example.musiclib.util.runnable.Runnable2;
+import com.lizhiguang.utils.log.LogUtil;
+import com.lizhiguang.utils.runnable.Runnable2;
 
 import java.util.ArrayList;
 import java.util.List;

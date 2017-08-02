@@ -1,8 +1,8 @@
 package com.example.musiclib.model;
 
 import com.example.musiclib.bean.AbstractMusic;
-import com.example.musiclib.util.LogUtil;
 import com.example.musiclib.util.MemoryCacheUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.io.File;
 import java.util.ArrayList;

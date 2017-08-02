@@ -4,8 +4,8 @@ import android.os.Environment;
 
 import com.example.musiclib.bean.AbstractMusic;
 import com.example.musiclib.model.LocalMusicListModel;
-import com.example.musiclib.util.LogUtil;
 import com.example.musiclib.util.ScanfMusicUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.util.List;
 

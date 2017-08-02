@@ -12,13 +12,11 @@ import android.widget.ListView;
 import com.example.musiclib.BaseFragment;
 import com.example.musiclib.R;
 import com.example.musiclib.bean.AbstractMusic;
-import com.example.musiclib.bean.LocalMusicInfo;
 import com.example.musiclib.proxy.LocalMusicManager;
 import com.example.musiclib.ui.adapter.MusicListAdapter;
 import com.example.musiclib.util.SettingUtil;
-import com.example.musiclib.util.runnable.Runnable1;
+import com.lizhiguang.utils.runnable.Runnable1;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

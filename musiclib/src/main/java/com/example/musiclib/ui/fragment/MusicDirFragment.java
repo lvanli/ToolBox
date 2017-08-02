@@ -15,8 +15,7 @@ import com.example.musiclib.R;
 import com.example.musiclib.bean.AbstractMusic;
 import com.example.musiclib.presenter.MusicListPresenter;
 import com.example.musiclib.ui.adapter.MusicDirListAdapter;
-import com.example.musiclib.util.LogUtil;
-import com.example.musiclib.util.runnable.Runnable1;
+import com.lizhiguang.utils.runnable.Runnable1;
 
 import java.util.List;
 

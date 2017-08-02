@@ -10,8 +10,8 @@ import android.webkit.WebViewClient;
 
 import com.lizhiguang.news.R;
 import com.lizhiguang.news.resource.NewsResourceFromZhiHu;
-import com.lizhiguang.news.util.LogUtil;
 import com.lizhiguang.news.util.cache.FileCacheUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 public class NewsShowHtmlActivity extends AppCompatActivity {
     WebView webView;

@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import com.example.musiclib.presenter.BasePresenter;
-import com.example.musiclib.util.runnable.Runnable1;
+import com.lizhiguang.utils.runnable.Runnable1;
 
 /**
  * Created by lizhiguang on 2017/7/11.

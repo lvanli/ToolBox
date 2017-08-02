@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.view.KeyEvent;
 
 import com.example.musiclib.proxy.LocalMusicManager;
-import com.example.musiclib.util.LogUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 /**
  * Created by lizhiguang on 2017/7/14.

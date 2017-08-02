@@ -5,7 +5,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 
-import com.lizhiguang.news.util.LogUtil;
+
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.io.File;
 import java.io.FileInputStream;

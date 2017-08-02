@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lizhiguang.news.R;
-import com.lizhiguang.news.util.LogUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.util.List;
 

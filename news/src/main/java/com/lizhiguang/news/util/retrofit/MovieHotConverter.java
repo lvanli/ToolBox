@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lizhiguang.news.bean.NewsHotMovies;
-import com.lizhiguang.news.util.LogUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

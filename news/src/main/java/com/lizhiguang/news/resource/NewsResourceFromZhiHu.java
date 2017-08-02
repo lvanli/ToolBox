@@ -7,8 +7,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.bumptech.glide.Glide;
 import com.lizhiguang.news.bean.NewsShortDetail;
 import com.lizhiguang.news.service.DownloadIntentService;
-import com.lizhiguang.news.util.LogUtil;
 import com.lizhiguang.news.util.cache.FileCacheUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.io.File;
 import java.util.List;

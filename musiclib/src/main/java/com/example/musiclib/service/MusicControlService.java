@@ -28,7 +28,7 @@ import com.example.musiclib.R;
 import com.example.musiclib.bean.AbstractMusic;
 import com.example.musiclib.defines.BroadcastDefine;
 import com.example.musiclib.defines.PlayModeDefine;
-import com.example.musiclib.util.LogUtil;
+import com.lizhiguang.utils.log.LogUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
