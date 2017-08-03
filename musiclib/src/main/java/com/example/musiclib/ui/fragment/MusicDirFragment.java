@@ -53,7 +53,8 @@ public class MusicDirFragment extends BaseFragment implements AdapterView.OnItem
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
+        if (mPresenter != null)
+            mPresenter.start();
     }
 
     @Override

@@ -75,7 +75,8 @@ public class MusicListFragment extends BaseFragment implements AdapterView.OnIte
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.start();
+        if (mPresenter != null)
+            mPresenter.start();
     }
 
     private void init(View view) {
