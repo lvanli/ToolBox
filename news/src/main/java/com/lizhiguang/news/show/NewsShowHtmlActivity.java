@@ -62,14 +62,14 @@ public class NewsShowHtmlActivity extends AppCompatActivity {
                             + "var objs = document.getElementsByTagName('img'); "
                             + "for(var i=0;i<objs.length;i++) {"
                             + // //webview图片自适应，android4.4之前都有用，4.4之后google优化后，无法支持，需要自己手动缩放
-                            "if (objs[i].className == \"content-image\")"
+                            "if (objs[i].className != \"avatar\")"
                             + " objs[i].style.width = '100%';objs[i].style.height = 'auto';"
                             + "}"
                             + "})()"
                 );
                 } else{
                     webView.loadUrl("javascript:var imgs = document.getElementsByTagName('img');for(var i = 0; i<imgs.length; i++)" +
-                            "if (imgs[i].className == \"content-image\")" +
+                            "if (imgs[i].className != \"avatar\")" +
                             "{imgs[i].style.width = '100%';imgs[i].style.height= 'auto';}");
                 }
             }
