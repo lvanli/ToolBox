@@ -88,7 +88,6 @@ public class MusicDetailFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        LocalMusicManager.getInstance().setMode(SettingUtil.getInt(mContext, SettingUtil.SETTING_PLAY_MODE));
         mPresenter.playMusicList(mListAdapter.getData(), position);
     }
 

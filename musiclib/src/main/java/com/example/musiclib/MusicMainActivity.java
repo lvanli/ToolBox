@@ -66,6 +66,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
             isServiceBinding = true;
             musicControl = IMusicControlService.Stub.asInterface(iBinder);
             LocalMusicManager.getInstance().setControler(musicControl);
+            initMusicManager();
         }
 
         @Override
@@ -75,6 +76,10 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
             musicControl = null;
         }
     };
+
+    private void initMusicManager() {
+        LocalMusicManager.getInstance().setMode(SettingUtil.getInt(this, SettingUtil.SETTING_PLAY_MODE));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

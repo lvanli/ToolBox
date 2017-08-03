@@ -148,7 +148,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
             musicIndex = index;
             musicList = list;
             musicPlayList = new ArrayList<>(musicList.size());
-            reloadPlayIndex();
+            reloadPlayIndex(musicIndex);
 
             LogUtil.d("musicList:" + list + " musicIndex:" + index + "now title:" + ((AbstractMusic) list.get(index)).title);
 
@@ -204,8 +204,13 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         @Override
         public void setMode(int mode) throws RemoteException {
             LogUtil.d("set mode=" + mode);
-            mPlayMode = mode;
-            reloadPlayIndex();
+            if (mPlayMode != mode || mode == PLAY_MODE_RANDOM) {
+                mPlayMode = mode;
+                if (musicPlayList != null)
+                    LogUtil.d("musicIndex="+musicIndex+",size="+musicPlayList.size());
+                if (musicPlayList != null && musicIndex >= 0 && musicPlayList.size() > musicIndex)
+                    reloadPlayIndex(musicPlayList.get(musicIndex));
+            }
         }
 
     };
@@ -291,27 +296,29 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         return mediaplayer;
     }
 
-    private void reloadPlayIndex() {
+    private void reloadPlayIndex(int oldIndex) {
         if (musicPlayList != null) {
             musicPlayList.clear();
             switch (mPlayMode) {
                 case PLAY_MODE_NORMAL:
                 case PLAY_MODE_SINGLE:
+                    musicIndex = oldIndex;
                     for (int i = 0; i < musicList.size(); i++)
                         musicPlayList.add(i);
                     break;
                 case PLAY_MODE_RANDOM:
                     for (int i = 0; i < musicList.size(); i++)
                         musicPlayList.add(i);
+                    musicPlayList.set(0,oldIndex);
+                    musicPlayList.set(oldIndex,0);
+                    musicIndex = 0;
                     Random random = new Random(SystemClock.elapsedRealtime());
                     int r, temp;
-                    for (int i = 0; i < musicList.size(); i++) {
+                    for (int i = 1; i < musicList.size(); i++) {
                         r = random.nextInt(musicList.size() - i);
                         temp = musicPlayList.get(r + i);
                         musicPlayList.set(i + r, musicPlayList.get(i));
                         musicPlayList.set(i, temp);
-                        if (temp == musicIndex)
-                            musicIndex = i;
                     }
                     break;
             }
