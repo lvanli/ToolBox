@@ -21,13 +21,17 @@
 ## 工具3:倒计时  
 使用自定义 view 实现滚动选择时间  
 ## 工具4:简易音乐客户端
-使用 TabLayout + viewpager 做主页面
-使用 service 建立新播放进程
-使用 aidl 连接播放进程与主进程
-使用代理模式对播放进程的接口进行封装
-实现了单曲循环、循环播放、随机播放模式
-实现了 Notification 中对音乐的上一首、下一首、暂停、播放、退出操作
-使用 dialog 选择 sd 卡目录
+使用 TabLayout + viewpager 做主页面  
+使用 service 建立新播放进程  
+使用 aidl 连接播放进程与主进程  
+使用代理模式对播放进程的接口进行封装  
+实现了单曲循环、循环播放、随机播放模式  
+实现了 Notification 中对音乐的上一首、下一首、暂停、播放、退出操作  
+使用 dialog 选择 sd 卡目录  
 音乐数据不同系统数据库获取，而是扫描 SD 卡或选择 SD 卡中某目录。
 ## util 工具包
-自定义 LogUtil 可以使 android studio 的 logcat 中点击跳转到打印代码处。
+自定义 LogUtil 可以使 android studio 的 logcat 中点击跳转到打印代码处。  
+使用代理模式新建了几个 Runnable 子类使用时可传入参数。  
+对 SharePreference 进行封装减少重复代码。  
+实现 base64 编码工具类  
+
