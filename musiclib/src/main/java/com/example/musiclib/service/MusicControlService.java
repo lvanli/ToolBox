@@ -49,9 +49,9 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
     NotificationManager mNotificationManager;
     Notification mNotification;
     RemoteViews reViews;
-    private int musicIndex = -1;
+    private int musicIndexPoint = -1;
     private List<AbstractMusic> musicList;
-    private List<Integer> musicPlayList;
+    private List<Integer> musicIndexList;
     private MediaPlayer mp;
     private int mPlayMode = PLAY_MODE_NORMAL;
     private Handler handler = new Handler() {
@@ -145,19 +145,19 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
 
         @Override
         public void preparePlayingList(int index, List list) throws RemoteException {
-            musicIndex = index;
+            musicIndexPoint = index;
             musicList = list;
-            musicPlayList = new ArrayList<>(musicList.size());
-            reloadPlayIndex(musicIndex);
+            musicIndexList = new ArrayList<>(musicList.size());
+            reloadPlayIndex(musicIndexPoint);
 
-            LogUtil.d("musicList:" + list + " musicIndex:" + index + "now title:" + ((AbstractMusic) list.get(index)).title);
+            LogUtil.d("musicList:" + list + " musicIndexPoint:" + index + "now title:" + ((AbstractMusic) list.get(index)).title);
 
             if (musicList == null || musicList.size() == 0) {
                 Toast.makeText(getBaseContext(), "播放列表为空", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            AbstractMusic song = musicList.get(musicPlayList.get(musicIndex));
+            AbstractMusic song = musicList.get(musicIndexList.get(musicIndexPoint));
             prepareSong(song);
         }
 
@@ -170,14 +170,14 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         public int getPlayingSongIndex() throws RemoteException {
             if (musicList == null || musicList.size() <= 0)
                 return -1;
-            return musicPlayList.get(musicIndex);
+            return musicIndexList.get(musicIndexPoint);
         }
 
         @Override
         public AbstractMusic getNowPlayingSong() throws RemoteException {
             if (musicList == null || musicList.size() <= 0)
                 return null;
-            return musicList.get(musicPlayList.get(musicIndex));
+            return musicList.get(musicIndexList.get(musicIndexPoint));
         }
 
         @Override
@@ -189,16 +189,16 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         public void preSong() throws RemoteException {
             if (musicList == null || musicList.size() <= 0)
                 return;
-            musicIndex = (musicIndex - 1 + musicList.size()) % musicList.size();
-            prepareSong(musicList.get(musicPlayList.get(musicIndex)));
+            musicIndexPoint = (musicIndexPoint - 1 + musicList.size()) % musicList.size();
+            prepareSong(musicList.get(musicIndexList.get(musicIndexPoint)));
         }
 
         @Override
         public void randomSong() throws RemoteException {
             if (musicList == null || musicList.size() <= 0)
                 return;
-            musicIndex = new Random().nextInt(musicList.size());
-            prepareSong(musicList.get(musicPlayList.get(musicIndex)));
+            musicIndexPoint = new Random().nextInt(musicList.size());
+            prepareSong(musicList.get(musicIndexList.get(musicIndexPoint)));
         }
 
         @Override
@@ -206,10 +206,10 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
             LogUtil.d("set mode=" + mode);
             if (mPlayMode != mode || mode == PLAY_MODE_RANDOM) {
                 mPlayMode = mode;
-                if (musicPlayList != null)
-                    LogUtil.d("musicIndex="+musicIndex+",size="+musicPlayList.size());
-                if (musicPlayList != null && musicIndex >= 0 && musicPlayList.size() > musicIndex)
-                    reloadPlayIndex(musicPlayList.get(musicIndex));
+                if (musicIndexList != null)
+                    LogUtil.d("musicIndexPoint="+ musicIndexPoint +",size="+ musicIndexList.size());
+                if (musicIndexList != null && musicIndexPoint >= 0 && musicIndexList.size() > musicIndexPoint)
+                    reloadPlayIndex(musicIndexList.get(musicIndexPoint));
             }
         }
 
@@ -297,33 +297,33 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
     }
 
     private void reloadPlayIndex(int oldIndex) {
-        if (musicPlayList != null) {
-            musicPlayList.clear();
+        if (musicIndexList != null) {
+            musicIndexList.clear();
             switch (mPlayMode) {
                 case PLAY_MODE_NORMAL:
                 case PLAY_MODE_SINGLE:
-                    musicIndex = oldIndex;
+                    musicIndexPoint = oldIndex;
                     for (int i = 0; i < musicList.size(); i++)
-                        musicPlayList.add(i);
+                        musicIndexList.add(i);
                     break;
                 case PLAY_MODE_RANDOM:
                     for (int i = 0; i < musicList.size(); i++)
-                        musicPlayList.add(i);
-                    musicPlayList.set(0,oldIndex);
-                    musicPlayList.set(oldIndex,0);
-                    musicIndex = 0;
+                        musicIndexList.add(i);
+                    musicIndexList.set(0,oldIndex);
+                    musicIndexList.set(oldIndex,0);
+                    musicIndexPoint = 0;
                     Random random = new Random(SystemClock.elapsedRealtime());
                     int r, temp;
                     for (int i = 1; i < musicList.size(); i++) {
                         r = random.nextInt(musicList.size() - i);
-                        temp = musicPlayList.get(r + i);
-                        musicPlayList.set(i + r, musicPlayList.get(i));
-                        musicPlayList.set(i, temp);
+                        temp = musicIndexList.get(r + i);
+                        musicIndexList.set(i + r, musicIndexList.get(i));
+                        musicIndexList.set(i, temp);
                     }
                     break;
             }
-            for (int i = 0; i < musicPlayList.size(); i++) {
-                LogUtil.d(i + "=" + musicPlayList.get(i));
+            for (int i = 0; i < musicIndexList.size(); i++) {
+                LogUtil.d(i + "=" + musicIndexList.get(i));
             }
         }
     }
@@ -399,10 +399,10 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         if (musicList == null || musicList.size() <= 0)
             return;
         if (!auto || mPlayMode != PLAY_MODE_SINGLE) {
-            musicIndex = (musicIndex + 1) % musicList.size();
+            musicIndexPoint = (musicIndexPoint + 1) % musicList.size();
         }
-        LogUtil.d("index=" + musicIndex + ",real=" + musicPlayList.get(musicIndex) + ",auto=" + auto + ",mode=" + mPlayMode);
-        prepareSong(musicList.get(musicPlayList.get(musicIndex)));
+        LogUtil.d("index=" + musicIndexPoint + ",real=" + musicIndexList.get(musicIndexPoint) + ",auto=" + auto + ",mode=" + mPlayMode);
+        prepareSong(musicList.get(musicIndexList.get(musicIndexPoint)));
     }
 
     private void play(AbstractMusic music) {
@@ -417,6 +417,8 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                 mp.setDataSource(music.path);
                 mp.prepare();
                 mp.start();
+                reViews.setViewVisibility(R.id.button_play_notification_play, View.GONE);
+                reViews.setViewVisibility(R.id.button_pause_notification_play, View.VISIBLE);
                 handler.sendEmptyMessage(MSG_CURRENT);
             } else
                 LogUtil.e("play mp=null!");
@@ -474,6 +476,8 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         reViews.setOnClickPendingIntent(R.id.button_play_notification_play, playPendingIntent);
         reViews.setOnClickPendingIntent(R.id.button_pause_notification_play, playPendingIntent);
 
+        reViews.setViewVisibility(R.id.button_play_notification_play, View.VISIBLE);
+        reViews.setViewVisibility(R.id.button_pause_notification_play, View.GONE);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext());
         builder.setContent(reViews).setSmallIcon(NT_PLAYBAR_ID).setTicker(title).setOngoing(true);
