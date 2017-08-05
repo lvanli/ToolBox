@@ -31,13 +31,15 @@ public class LocalMusicManager {
         mControl = service;
     }
 
-    public void preparePlayingList(List<AbstractMusic> infos, int position) {
+    public boolean preparePlayingList(List<AbstractMusic> infos, int position) {
         if (mControl != null)
             try {
                 mControl.preparePlayingList(position, infos);
+                return true;
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+        return false;
     }
 
     public void stop() {
@@ -127,6 +129,15 @@ public class LocalMusicManager {
         if (mControl != null)
             try {
                 mControl.setMode(mode);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+    }
+
+    public void setAutoCloseTime(int time) {
+        if (mControl != null)
+            try {
+                mControl.setAutoCloseTime(time);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

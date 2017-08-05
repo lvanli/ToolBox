@@ -26,6 +26,8 @@ public abstract class BasePresenter {
     public abstract void reload();
 
     public void playMusicList(List<AbstractMusic> infos, int position) {
-        mMusicManager.preparePlayingList(infos, position);
+        if (!mMusicManager.preparePlayingList(infos, position)) {
+            mView.reconnect(infos,position);
+        }
     }
 }

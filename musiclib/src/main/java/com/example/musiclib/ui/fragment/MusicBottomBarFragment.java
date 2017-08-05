@@ -34,11 +34,11 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine 
     private ToggleButton mPlay;
     private SeekBar mSeekBar;
     private boolean isTouch;
+    private AbstractMusic mPlayMusic;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            // TODO Auto-generated method stub
             String action = intent.getAction();
 
             switch (action) {
@@ -56,6 +56,10 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine 
                 case CURRENT_UPDATE:
                     if (!isTouch)
                         mSeekBar.setProgress(intent.getIntExtra("currentTime", 0));
+                    break;
+                case PLAY_STATUS_RESET:
+                    LocalMusicManager.getInstance().setControler(null);
+                    updateBottomBarFromService(null);
                     break;
             }
         }
@@ -96,20 +100,22 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine 
             }
         });
         initListener();
-        initReciever();
+        initReceiver();
     }
 
     protected void initListener() {
         mNext.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                LocalMusicManager.getInstance().next();
+                if (mPlayMusic != null)
+                    LocalMusicManager.getInstance().next();
             }
         });
         mPrev.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                LocalMusicManager.getInstance().prev();
+                if (mPlayMusic != null)
+                    LocalMusicManager.getInstance().prev();
             }
         });
 
@@ -117,7 +123,6 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine 
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO Auto-generated method stub
                 if (isChecked != LocalMusicManager.getInstance().isPlaying()) {
                     //播放意图
                     if (isChecked) {
@@ -130,11 +135,12 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine 
         });
     }
 
-    protected void initReciever() {
+    protected void initReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(PLAYBAR_UPDATE);
         intentFilter.addAction(CURRENT_UPDATE);
         intentFilter.addAction(PLAY_STATUS_UPDATE);
+        intentFilter.addAction(PLAY_STATUS_RESET);
         getActivity().registerReceiver(receiver, intentFilter);
     }
 
@@ -145,6 +151,7 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine 
     }
 
     void updateBottomBarFromService(AbstractMusic music) {
+        mPlayMusic = music;
         if (music != null) {
             if (!TextUtils.isEmpty(music.title))
                 mTitle.setText(music.title);
@@ -152,6 +159,13 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine 
                 mTitle.setText(music.name);
             mArtist.setText(music.artist);
             mPlay.setChecked(LocalMusicManager.getInstance().isPlaying());
+            mPlay.setEnabled(true);
+        } else {
+            mTitle.setText("");
+            mArtist.setText("");
+            mPlay.setChecked(false);
+            mSeekBar.setProgress(0);
+            mPlay.setEnabled(false);
         }
     }
 }

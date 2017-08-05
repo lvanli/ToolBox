@@ -23,8 +23,8 @@
             android:id="@+id/music_nav_select_circle"
             android:title="循环设置" />
         <item
-            android:id="@+id/music_nav_settings"
-            android:title="设置" />
+            android:id="@+id/music_nav_auto_close"
+            android:title="睡眠模式" />
 
         <item
             android:id="@+id/music_nav_exit"

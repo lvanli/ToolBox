@@ -39,4 +39,6 @@ interface IMusicControlService {
     void randomSong();
 
     void setMode(int mode);
+
+    void setAutoCloseTime(int time);
 }

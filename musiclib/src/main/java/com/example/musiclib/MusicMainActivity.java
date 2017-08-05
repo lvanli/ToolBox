@@ -67,6 +67,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
             musicControl = IMusicControlService.Stub.asInterface(iBinder);
             LocalMusicManager.getInstance().setControler(musicControl);
             initMusicManager();
+            LocalBroadcastManager.getInstance(MusicMainActivity.this).sendBroadcast(new Intent(INTENT_RECONNECT_SUCCESS));
         }
 
         @Override
@@ -105,6 +106,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
         IntentFilter filter = new IntentFilter();
         filter.addAction(INTENT_SEARCH_ERROR);
         filter.addAction(INTENT_RESCAN);
+        filter.addAction(INTENT_RECONNECT);
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
         //线控音频焦点注册
@@ -270,6 +272,14 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
         } else if (item.getItemId() == R.id.music_nav_exit) {
             finish();
             return true;
+        } else if (item.getItemId() == R.id.music_nav_auto_close) {
+            DialogUtil.showSeekBarDialog(this, "关闭", 90, "分钟", new DialogUtil.DialogCallback() {
+                @Override
+                public void onSelect(Object o) {
+                    int process = (int)o;
+                    LocalMusicManager.getInstance().setAutoCloseTime(process);
+                }
+            });
         }
         return false;
     }
@@ -303,6 +313,12 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
             else if (intent.getAction().equals(INTENT_RESCAN)) {
                 String path = SettingUtil.getString(context, SettingUtil.SETTING_SCAN_PATH);
                 scanMusicWithFile(new File(path));
+            } else if (intent.getAction().equals(INTENT_RECONNECT)) {
+                if (!isServiceBinding) {
+                    Log.i(TAG, "start binding service");
+                    Intent connIntent = new Intent(MusicMainActivity.this, MusicControlService.class);
+                    bindService(connIntent, mConnection, BIND_AUTO_CREATE);
+                }
             }
         }
     }

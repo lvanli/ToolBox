@@ -54,6 +54,8 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
     private List<Integer> musicIndexList;
     private MediaPlayer mp;
     private int mPlayMode = PLAY_MODE_NORMAL;
+    private int sleepTime = 0;
+    private long sleepBeginTime = 0;
     private Handler handler = new Handler() {
 
         @Override
@@ -69,6 +71,17 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                         sendBroadcast(intent);
 
                         handler.sendEmptyMessageDelayed(MSG_CURRENT, 500);
+
+                        if (sleepTime != 0) {
+                            long time = SystemClock.elapsedRealtime() - sleepBeginTime;
+                            LogUtil.d("time="+time+",all="+sleepTime);
+                            if (time/1000/60 >= sleepTime) {
+                                sendBroadcast(new Intent(PLAY_EXIT));
+                            } else {
+                                reViews.setTextViewText(R.id.time, "离关闭还有" + (sleepTime - (time / 1000 + 59) / 60) + "分");
+                                mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
+                            }
+                        }
                     }
                     break;
             }
@@ -213,6 +226,16 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
             }
         }
 
+        @Override
+        public void setAutoCloseTime(int time) throws RemoteException {
+            if (time == 0) {
+                reViews.setTextViewText(R.id.time, "");
+                mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
+            }
+            sleepTime = time;
+            sleepBeginTime = SystemClock.elapsedRealtime();
+        }
+
     };
     private BroadcastReceiver controlReceiver = new BroadcastReceiver() {
         @Override
@@ -220,6 +243,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
             LogUtil.d("intent="+intent.getAction());
             switch (intent.getAction()) {
                 case PLAY_EXIT:
+                    sendBroadcast(new Intent(PLAY_STATUS_RESET));
                     stopSelf();
                     mNotificationManager.cancel(NT_PLAYBAR_ID);
 
@@ -419,6 +443,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                 mp.start();
                 reViews.setViewVisibility(R.id.button_play_notification_play, View.GONE);
                 reViews.setViewVisibility(R.id.button_pause_notification_play, View.VISIBLE);
+                mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
                 handler.sendEmptyMessage(MSG_CURRENT);
             } else
                 LogUtil.e("play mp=null!");
