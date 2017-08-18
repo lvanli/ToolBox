@@ -25,7 +25,9 @@
         <item
             android:id="@+id/music_nav_auto_close"
             android:title="睡眠模式" />
-
+        <item
+            android:id="@+id/music_nav_return"
+            android:title="返回" />
         <item
             android:id="@+id/music_nav_exit"
             android:title="退出" />

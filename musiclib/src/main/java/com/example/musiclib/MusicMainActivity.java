@@ -118,7 +118,8 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(mConnection);
+        if(isServiceBinding)
+            unbindService(mConnection);
         abandonAudioFocus();
     }
 
@@ -270,6 +271,11 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
             });
             return true;
         } else if (item.getItemId() == R.id.music_nav_exit) {
+            unbindService(mConnection);
+            stopService(new Intent(this, MusicControlService.class));
+            finish();
+            return true;
+        } else if (item.getItemId() == R.id.music_nav_return) {
             finish();
             return true;
         } else if (item.getItemId() == R.id.music_nav_auto_close) {
