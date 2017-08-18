@@ -71,7 +71,12 @@ public class LauncherActivityFragment extends Fragment implements View.OnClickLi
                 row.setLayoutParams(defaultL);
                 row.setWeightSum(4);
             }
+            Intent intent = new Intent();
             if (i < appInfos.size()) {
+                intent.setAction(appInfos.get(i).getAction());
+                if (intent.resolveActivity(mContext.getPackageManager()) == null) {
+                    continue;
+                }
                 BasicPermanentIcon icon = new BasicPermanentIcon(mContext);
                 icon.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
                 icon.setOnClickListener(this);
