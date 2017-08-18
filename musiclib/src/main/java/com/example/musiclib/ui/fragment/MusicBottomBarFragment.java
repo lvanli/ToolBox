@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.ToggleButton;
 import com.example.musiclib.R;
 import com.example.musiclib.bean.AbstractMusic;
 import com.example.musiclib.defines.BroadcastDefine;
+import com.example.musiclib.defines.LocalBroadcastDefine;
 import com.example.musiclib.proxy.LocalMusicManager;
 import com.example.musiclib.ui.click.NoDoubleClickListener;
 
@@ -27,7 +29,7 @@ import com.example.musiclib.ui.click.NoDoubleClickListener;
  * Created by lizhiguang on 2017/7/12.
  */
 
-public class MusicBottomBarFragment extends Fragment implements BroadcastDefine {
+public class MusicBottomBarFragment extends Fragment implements BroadcastDefine,LocalBroadcastDefine {
     private TextView mTitle;
     private TextView mArtist;
     private Button mNext, mPrev;
@@ -46,6 +48,7 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine 
                     boolean isPlaying = intent.getBooleanExtra("isPlaying", false);
                     mPlay.setChecked(isPlaying);
                     break;
+                case INTENT_RECONNECT_SUCCESS:
                 case PLAYBAR_UPDATE:
                     AbstractMusic music = LocalMusicManager.getInstance().getNowPlayingSong();
                     if (music != null) {
@@ -142,12 +145,15 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine 
         intentFilter.addAction(PLAY_STATUS_UPDATE);
         intentFilter.addAction(PLAY_STATUS_RESET);
         getActivity().registerReceiver(receiver, intentFilter);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,
+                new IntentFilter(INTENT_RECONNECT_SUCCESS));
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         getActivity().unregisterReceiver(receiver);
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
+        super.onDestroy();
     }
 
     void updateBottomBarFromService(AbstractMusic music) {
