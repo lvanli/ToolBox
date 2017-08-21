@@ -40,6 +40,8 @@ public class NewsZhiHuFragment extends Fragment implements View.OnClickListener 
     CarouselPagerAdapter mAdapter;
     NewsShortAdapter mNewsShortAdapter;
 
+    public NewsZhiHuFragment(){}
+
     public NewsZhiHuFragment(Context context) {
         mContext = context;
     }
