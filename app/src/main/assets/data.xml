@@ -30,4 +30,9 @@
         <action>com.lizhiguang.action.MUSICACTIVITY</action>
         <image>music.png</image>
     </information>
+    <information count="7">
+        <name>Java练习</name>
+        <action>com.lizhiguang.action.JavaPractice</action>
+        <image>java.png</image>
+    </information>
 </application>
