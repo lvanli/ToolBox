@@ -53,7 +53,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
     private NavigationView navigationView;
     private MainFragment mainFragment;
     private IMusicControlService musicControl;
-    private boolean isServiceBinding;
+    private boolean isServiceBinding = false;
     private AudioManager mAudioManager;
     private ComponentName mRemoteComponentName;
     private MediaSession mSession;
@@ -117,6 +117,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
         super.onDestroy();
         if(isServiceBinding)
             unbindService(mConnection);
@@ -271,7 +272,6 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
             });
             return true;
         } else if (item.getItemId() == R.id.music_nav_exit) {
-            unbindService(mConnection);
             stopService(new Intent(this, MusicControlService.class));
             finish();
             return true;
