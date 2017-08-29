@@ -18,7 +18,7 @@
             android:layout_height="match_parent" />
     </android.support.design.widget.AppBarLayout>
 
-    <com.mrw.wzmrecyclerview.AutoLoad.AutoLoadRecyclerView
+    <com.jimi_wu.ptlrecyclerview.AutoLoad.AutoLoadRecyclerView
         android:id="@+id/news_recycle_main"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"

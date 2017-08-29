@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.jimi_wu.ptlrecyclerview.AutoLoad.AutoLoadRecyclerView;
+import com.jimi_wu.ptlrecyclerview.PullToLoad.OnLoadListener;
+import com.jimi_wu.ptlrecyclerview.PullToRefresh.OnRefreshListener;
 import com.lizhiguang.news.R;
 import com.lizhiguang.news.adapter.CarouselPagerAdapter;
 import com.lizhiguang.news.adapter.NewsShortAdapter;
@@ -22,9 +25,6 @@ import com.lizhiguang.news.bean.NewsShortDetail;
 import com.lizhiguang.news.util.recycler.SimpleRefreshHeaderCreator;
 import com.lizhiguang.news.show.NewsShowHtmlActivity;
 import com.lizhiguang.utils.log.LogUtil;
-import com.mrw.wzmrecyclerview.AutoLoad.AutoLoadRecyclerView;
-import com.mrw.wzmrecyclerview.PullToLoad.OnLoadListener;
-import com.mrw.wzmrecyclerview.PullToRefresh.OnRefreshListener;
 
 import java.util.List;
 
@@ -82,7 +82,6 @@ public class NewsZhiHuFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onStartLoading(int skip) {
                 mPresenter.loadNews();
-                mRecyclerView.completeLoad();
             }
         });
         mRecyclerView.setOnRefreshListener(new OnRefreshListener() {
@@ -106,7 +105,7 @@ public class NewsZhiHuFragment extends Fragment implements View.OnClickListener 
     public void onStop() {
         super.onStop();
         if (mRecyclerView != null) {
-            mRecyclerView.completeLoad();
+            mRecyclerView.completeLoad(0);
             mRecyclerView.completeRefresh();
         }
     }
@@ -146,6 +145,7 @@ public class NewsZhiHuFragment extends Fragment implements View.OnClickListener 
                 for (int i = 0; i < details.size(); i++)
                     mNewsShortAdapter.addData(details.get(i), count++);
                 mNewsShortAdapter.notifyDataSetChanged();
+                mRecyclerView.completeLoad(details.size());
             }
         });
     }

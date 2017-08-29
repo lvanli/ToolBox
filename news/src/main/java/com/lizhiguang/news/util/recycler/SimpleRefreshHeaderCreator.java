@@ -6,10 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jimi_wu.ptlrecyclerview.DefaultHeaderAndFooterCreator.DefaultRefreshHeaderCreator;
 import com.lizhiguang.news.R;
-import com.mrw.wzmrecyclerview.DefaultHeaderAndFooterCreator.DefaultRefreshHeaderCreator;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by lizhiguang on 2017/4/21.

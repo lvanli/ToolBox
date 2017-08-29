@@ -36,7 +36,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:design:25.3.1'
     compile 'com.alibaba:fastjson:1.2.31'
-    compile 'com.mrw:wzmrecyclerview:1.0.3'
+    compile 'com.jimi_wu:PTLRecyclerView:1.1.1'
     compile 'com.mcxiaoke.volley:library:1.0.+'
 
     compile(name: 'utils-release', ext: 'aar')
