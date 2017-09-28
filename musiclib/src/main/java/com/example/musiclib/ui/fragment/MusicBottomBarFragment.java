@@ -24,6 +24,7 @@ import com.example.musiclib.defines.BroadcastDefine;
 import com.example.musiclib.defines.LocalBroadcastDefine;
 import com.example.musiclib.proxy.LocalMusicManager;
 import com.example.musiclib.ui.click.NoDoubleClickListener;
+import com.lizhiguang.utils.log.LogUtil;
 
 /**
  * Created by lizhiguang on 2017/7/12.
@@ -37,16 +38,21 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine,
     private SeekBar mSeekBar;
     private boolean isTouch;
     private AbstractMusic mPlayMusic;
+    private boolean isUserCheck = true;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-
+            if (!action.equals(CURRENT_UPDATE)) {
+                LogUtil.d("receive action="+action);
+            }
             switch (action) {
                 case PLAY_STATUS_UPDATE:
                     boolean isPlaying = intent.getBooleanExtra("isPlaying", false);
+                    isUserCheck = false;
                     mPlay.setChecked(isPlaying);
+                    isUserCheck = true;
                     break;
                 case INTENT_RECONNECT_SUCCESS:
                 case PLAYBAR_UPDATE:
@@ -126,7 +132,7 @@ public class MusicBottomBarFragment extends Fragment implements BroadcastDefine,
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked != LocalMusicManager.getInstance().isPlaying()) {
+                if (isUserCheck && isChecked != LocalMusicManager.getInstance().isPlaying()) {
                     //播放意图
                     if (isChecked) {
                         LocalMusicManager.getInstance().play();

@@ -56,6 +56,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
     private int mPlayMode = PLAY_MODE_NORMAL;
     private int sleepTime = 0;
     private long sleepBeginTime = 0;
+    private int mPrintTime = 0;
     private Handler handler = new Handler() {
 
         @Override
@@ -66,7 +67,10 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                     Intent intent = new Intent(CURRENT_UPDATE);
                     if (mp.isPlaying()) {
                         int currentTime = mp.getCurrentPosition();
-                        LogUtil.i(currentTime + "");
+                        if (mp.getCurrentPosition() - mPrintTime > 1000 * 5) {
+                            LogUtil.d(mPrintTime + "");
+                            mPrintTime = currentTime;
+                        }
                         intent.putExtra("currentTime", currentTime);
                         sendBroadcast(intent);
 
@@ -127,7 +131,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                 reViews.setViewVisibility(R.id.button_pause_notification_play, View.GONE);
 
                 mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
-
+                LogUtil.d("pause");
                 mp.pause();
                 handler.removeMessages(MSG_CURRENT);
 
@@ -142,6 +146,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                 reViews.setViewVisibility(R.id.button_play_notification_play, View.VISIBLE);
                 reViews.setViewVisibility(R.id.button_pause_notification_play, View.GONE);
 
+                LogUtil.d("stop");
                 mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
                 mp.stop();
                 handler.removeMessages(MSG_CURRENT);
@@ -153,6 +158,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         public void seekTo(int mesc) throws RemoteException {
             if (musicList == null || musicList.size() <= 0)
                 return;
+            LogUtil.d("seekTo:"+mesc);
             mp.seekTo(mesc);
         }
 
@@ -163,7 +169,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
             musicIndexList = new ArrayList<>(musicList.size());
             reloadPlayIndex(musicIndexPoint);
 
-            LogUtil.d("musicList:" + list + " musicIndexPoint:" + index + "now title:" + ((AbstractMusic) list.get(index)).title);
+            LogUtil.d(" musicIndexPoint:" + index + "now title:" + ((AbstractMusic) list.get(index)).title);
 
             if (musicList == null || musicList.size() == 0) {
                 Toast.makeText(getBaseContext(), "播放列表为空", Toast.LENGTH_LONG).show();
@@ -183,6 +189,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         public int getPlayingSongIndex() throws RemoteException {
             if (musicList == null || musicList.size() <= 0)
                 return -1;
+            LogUtil.d("getPlayingIndex:"+musicIndexPoint+","+musicIndexList.get(musicIndexPoint));
             return musicIndexList.get(musicIndexPoint);
         }
 
@@ -346,16 +353,14 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                     }
                     break;
             }
-            for (int i = 0; i < musicIndexList.size(); i++) {
-                LogUtil.d(i + "=" + musicIndexList.get(i));
-            }
+            LogUtil.d("indexList="+musicIndexList);
         }
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        LogUtil.init(true,true,"musicService",5*1024);
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotification = new Notification();
 
@@ -390,11 +395,15 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
 
     @Override
     public void onDestroy() {
-        stopForeground(true);
+        try {
+            mBinder.stop();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         mNotificationManager.cancel(NT_PLAYBAR_ID);
-
         LogUtil.d("unregisterReceiver");
         unregisterReceiver(controlReceiver);
+        LogUtil.sync();
         super.onDestroy();
     }
 

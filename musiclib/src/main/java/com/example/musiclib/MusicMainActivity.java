@@ -72,6 +72,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
+            Log.i(TAG, "onServiceDisconnected");
             LocalMusicManager.getInstance().setControler(null);
             isServiceBinding = false;
             musicControl = null;
@@ -90,6 +91,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void init() {
+        LogUtil.init(true,true,"music",10*1024);
         navigationView = (NavigationView) findViewById(R.id.music_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         drawer = (DrawerLayout) findViewById(R.id.music_main_drawer);
@@ -122,6 +124,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
         if(isServiceBinding)
             unbindService(mConnection);
         abandonAudioFocus();
+        LogUtil.sync();
     }
 
     private void abandonAudioFocus() {
@@ -272,8 +275,8 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
             });
             return true;
         } else if (item.getItemId() == R.id.music_nav_exit) {
-            stopService(new Intent(this, MusicControlService.class));
             finish();
+            stopService(new Intent(this, MusicControlService.class));
             return true;
         } else if (item.getItemId() == R.id.music_nav_return) {
             finish();
