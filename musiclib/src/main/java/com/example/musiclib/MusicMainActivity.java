@@ -42,6 +42,7 @@ import com.example.musiclib.util.DirChoiceUtil;
 import com.example.musiclib.util.MemoryCacheUtil;
 import com.example.musiclib.util.ScanfMusicUtil;
 import com.example.musiclib.util.SettingUtil;
+import com.lizhiguang.utils.log.CrashHandler;
 import com.lizhiguang.utils.log.LogUtil;
 
 import java.io.File;
@@ -92,6 +93,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
 
     private void init() {
         LogUtil.init(true,true,"music",10*1024);
+        CrashHandler.getInstance().init(getApplicationContext());
         LogUtil.d("init log finish");
         navigationView = (NavigationView) findViewById(R.id.music_nav_view);
         navigationView.setNavigationItemSelectedListener(this);

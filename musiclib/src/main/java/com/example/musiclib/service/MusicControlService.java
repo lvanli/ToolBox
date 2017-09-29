@@ -28,6 +28,7 @@ import com.example.musiclib.R;
 import com.example.musiclib.bean.AbstractMusic;
 import com.example.musiclib.defines.BroadcastDefine;
 import com.example.musiclib.defines.PlayModeDefine;
+import com.lizhiguang.utils.log.CrashHandler;
 import com.lizhiguang.utils.log.LogUtil;
 
 import java.lang.reflect.Constructor;
@@ -361,6 +362,17 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
     public void onCreate() {
         super.onCreate();
         LogUtil.init(true,true,"musicService",5*1024);
+        CrashHandler.getInstance().init(getApplicationContext());
+        CrashHandler.getInstance().setHandle(new CrashHandler.ExceptionHandle() {
+            @Override
+            public boolean handleException(Throwable throwable) {
+                sendBroadcast(new Intent(PLAY_STATUS_RESET));
+                stopSelf();
+                mNotificationManager.cancel(NT_PLAYBAR_ID);
+                Process.killProcess(Process.myPid());
+                return true;
+            }
+        });
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotification = new Notification();
 
@@ -400,6 +412,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        CrashHandler.getInstance().uninit();
         mNotificationManager.cancel(NT_PLAYBAR_ID);
         LogUtil.d("unregisterReceiver");
         unregisterReceiver(controlReceiver);
