@@ -92,6 +92,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
 
     private void init() {
         LogUtil.init(true,true,"music",10*1024);
+        LogUtil.d("init log finish");
         navigationView = (NavigationView) findViewById(R.id.music_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         drawer = (DrawerLayout) findViewById(R.id.music_main_drawer);
