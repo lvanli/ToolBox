@@ -43,7 +43,6 @@ public class DirChoiceUtil {
         String list[] = file.list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                LogUtil.d("dir=" + dir + ",name=" + name);
                 return new File(dir, name).isDirectory();
             }
         });
@@ -65,6 +64,7 @@ public class DirChoiceUtil {
                     p = new File(path.getText().toString()).getParent();
                 } else
                     p = path.getText().toString() + "/" + dirName;
+                LogUtil.d("path="+p);
                 String list[] = new File(p).list(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {

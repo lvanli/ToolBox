@@ -445,6 +445,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
 
         try {
             if (mp != null) {
+                mPrintTime = 0;
                 mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 LogUtil.i("datasoure:" + music.path);
                 mp.setDataSource(music.path);
