@@ -1,5 +1,6 @@
 package com.lizhiguang.news.homepage.zhihu;
 
+import android.animation.ValueAnimator;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.jimi_wu.ptlrecyclerview.AutoLoad.AutoLoadRecyclerView;
+import com.jimi_wu.ptlrecyclerview.DefaultHeaderAndFooterCreator.DefaultAutoLoadFooterCreator;
 import com.jimi_wu.ptlrecyclerview.PullToLoad.OnLoadListener;
 import com.jimi_wu.ptlrecyclerview.PullToRefresh.OnRefreshListener;
 import com.lizhiguang.news.R;
@@ -26,6 +28,7 @@ import com.lizhiguang.news.util.recycler.SimpleRefreshHeaderCreator;
 import com.lizhiguang.news.show.NewsShowHtmlActivity;
 import com.lizhiguang.utils.log.LogUtil;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -113,6 +116,24 @@ public class NewsZhiHuFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        //解决内存泄漏，ValueAnimator没有回收
+        try {
+            Field mCreatorField = AutoLoadRecyclerView.class.getDeclaredField("mAutoLoadFooterCreator");
+            mCreatorField.setAccessible(true);
+            Object mCreator = mCreatorField.get(mRecyclerView);
+            if (mCreator != null && mCreator instanceof DefaultAutoLoadFooterCreator) {
+                Field mAnimatorField = DefaultAutoLoadFooterCreator.class.getDeclaredField("ivAnim");
+                mAnimatorField.setAccessible(true);
+                Object mAnimator = mAnimatorField.get(mCreator);
+                if (mAnimator != null && mAnimator instanceof ValueAnimator) {
+                    ((ValueAnimator)mAnimator).cancel();
+                }
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         mRecyclerView = null;
     }
 
