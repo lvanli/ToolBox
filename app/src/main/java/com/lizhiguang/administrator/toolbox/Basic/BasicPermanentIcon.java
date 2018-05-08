@@ -97,7 +97,7 @@ public class BasicPermanentIcon extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+        //super.onDraw(canvas);
         Bitmap bitmap = null;
         int textAreaHeight = 0;
         int textAreaWidth = 0;

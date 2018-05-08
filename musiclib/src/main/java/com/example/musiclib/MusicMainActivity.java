@@ -2,6 +2,7 @@ package com.example.musiclib;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -15,12 +16,15 @@ import android.media.session.MediaSession;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -48,6 +52,8 @@ import com.lizhiguang.utils.log.LogUtil;
 import java.io.File;
 import java.util.List;
 
+import static com.example.musiclib.defines.BroadcastDefine.*;
+
 public class MusicMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LocalBroadcastDefine, ScanfMusicUtil.ScanResultCallback, DirChoiceUtil.DirResultCallback {
     private static final String TAG = "MusicMainActivity";
     private DrawerLayout drawer;
@@ -58,6 +64,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
     private AudioManager mAudioManager;
     private ComponentName mRemoteComponentName;
     private MediaSession mSession;
+    private MediaSessionCompat mSessionCompat;
     private MyOnAudioFocusChangeListener onAudioFocusChangeListener = new MyOnAudioFocusChangeListener();
     private ActivityReceiver receiver = new ActivityReceiver();
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -109,6 +116,8 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
             bindService(intent, mConnection, BIND_AUTO_CREATE);
         }
         IntentFilter filter = new IntentFilter();
+        filter.addAction(PLAY_STATUS_UPDATE);
+        registerReceiver(receiver,filter);
         filter.addAction(INTENT_SEARCH_ERROR);
         filter.addAction(INTENT_RESCAN);
         filter.addAction(INTENT_RECONNECT);
@@ -123,15 +132,19 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onDestroy() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        unregisterReceiver(receiver);
         super.onDestroy();
-        if(isServiceBinding)
+        if(isServiceBinding) {
             unbindService(mConnection);
+        }
         abandonAudioFocus();
         LogUtil.sync();
     }
 
     private void abandonAudioFocus() {
-        if (mAudioManager == null || mRemoteComponentName == null) return;
+        if (mAudioManager == null || mRemoteComponentName == null) {
+            return;
+        }
         mAudioManager.abandonAudioFocus(onAudioFocusChangeListener);
         mAudioManager.unregisterMediaButtonEventReceiver(mRemoteComponentName);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -147,18 +160,50 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
         int result = mAudioManager
                 .requestAudioFocus(onAudioFocusChangeListener,
                         AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
-        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            mAudioManager.registerMediaButtonEventReceiver(mRemoteComponentName);
-//        else
-//            setMediaButtonEvent();
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                mAudioManager.registerMediaButtonEventReceiver(mRemoteComponentName);
+            } else {
+                setMediaButtonEvent();
+            }
+        }
+        LogUtil.d("audioFocusResult:"+result);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setMediaButtonEvent() {
+        ComponentName componentName = new ComponentName(this,RemoteControlReceiver.class.getName());
+        getPackageManager().setComponentEnabledSetting(componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,PackageManager.DONT_KILL_APP);
+        Intent mediaButton = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        mediaButton.setComponent(componentName);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,mediaButton,PendingIntent.FLAG_CANCEL_CURRENT);
+        mSessionCompat = new MediaSessionCompat(this,"music",componentName,null);
+        mSessionCompat.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |
+                MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
+        mSessionCompat.setMediaButtonReceiver(pendingIntent);
+        mSessionCompat.setCallback(new MediaSessionCompat.Callback() {
+            @Override
+            public boolean onMediaButtonEvent(Intent mediaButtonEvent) {
+                RemoteControlReceiver.getInstance().onReceive(MusicMainActivity.this,mediaButtonEvent);
+                return true;
+            }
+        },new Handler(getMainLooper()));
+        setPlayStats(PlaybackStateCompat.STATE_NONE);
+        if (!mSessionCompat.isActive()) {
+            mSessionCompat.setActive(true);
+        }
+
+
+/*
         mSession = new MediaSession(this, "music");
         mSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS | MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mSession.setCallback(new MediaSession.Callback() {
+            @Override
+            public boolean onMediaButtonEvent(@NonNull Intent mediaButtonIntent) {
+
+                return super.onMediaButtonEvent(mediaButtonIntent);
+            }
 
             @Override
             public void onPlay() {
@@ -196,7 +241,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
                 LocalMusicManager.getInstance().seekTo((int) pos);
             }
         });
-        mSession.setActive(true);
+        mSession.setActive(true);*/
     }
 
     @Override
@@ -215,8 +260,9 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onStart() {
         super.onStart();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getPermission();
+        }
         if (!isServiceBinding) {
             Intent intent = new Intent(this, MusicControlService.class);
             startService(intent);
@@ -320,6 +366,7 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
     class ActivityReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            LogUtil.d("receiver:"+intent.getAction());
             if (intent.getAction().equals(INTENT_SEARCH_ERROR))
                 Toast.makeText(context, "未搜索到内容", Toast.LENGTH_SHORT).show();
             else if (intent.getAction().equals(INTENT_RESCAN)) {
@@ -332,6 +379,19 @@ public class MusicMainActivity extends AppCompatActivity implements NavigationVi
                     bindService(connIntent, mConnection, BIND_AUTO_CREATE);
                 }
             }
+            switch (intent.getAction()) {
+                case PLAY_STATUS_UPDATE:
+                    boolean isPlaying = intent.getBooleanExtra("isPlaying", false);
+                    setPlayStats(isPlaying ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED);
+                    break;
+                default:
+                    break;
+            }
         }
+    }
+
+    public void setPlayStats(int state) {
+        mSessionCompat.setPlaybackState(new PlaybackStateCompat.Builder().setState(
+                state,0,1.0f).build());
     }
 }

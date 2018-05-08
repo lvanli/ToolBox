@@ -13,8 +13,10 @@ import com.lizhiguang.utils.log.LogUtil;
  */
 
 public class RemoteControlReceiver extends BroadcastReceiver {
+    private static RemoteControlReceiver receiver = new RemoteControlReceiver();
     @Override
     public void onReceive(Context context, Intent intent) {
+        LogUtil.d("receive action="+intent.getAction());
         if (intent.getAction().equals(Intent.ACTION_MEDIA_BUTTON)) {
             KeyEvent event = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
             LogUtil.d("keyAction=" + event.getKeyCode());
@@ -39,5 +41,8 @@ public class RemoteControlReceiver extends BroadcastReceiver {
                     break;
             }
         }
+    }
+    public static RemoteControlReceiver getInstance() {
+        return receiver;
     }
 }

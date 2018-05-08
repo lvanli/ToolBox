@@ -2,6 +2,7 @@ package com.example.musiclib.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.musiclib.util.SettingUtil;
 import com.lizhiguang.utils.runnable.Runnable1;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by lizhiguang on 2017/7/11.
@@ -51,6 +53,9 @@ public class MusicListFragment extends BaseFragment implements AdapterView.OnIte
                         List<AbstractMusic> infos = (List<AbstractMusic>) mP1;
                         showToast("共" + infos.size() + "首");
                         mListAdapter.setData(infos);
+                        if (!LocalMusicManager.getInstance().isPlaying() && mListAdapter != null && mListAdapter.getData() != null) {
+                            mPresenter.playMusicList(mListAdapter.getData(), new Random(SystemClock.uptimeMillis()).nextInt(mListAdapter.getCount() - 1));
+                        }
                         mListAdapter.notifyDataSetChanged();
                     } else {
                         showToast("搜索异常");

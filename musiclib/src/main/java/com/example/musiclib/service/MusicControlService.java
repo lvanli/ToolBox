@@ -84,7 +84,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                                 sendBroadcast(new Intent(PLAY_EXIT));
                             } else {
                                 reViews.setTextViewText(R.id.time, "离关闭还有" + (sleepTime - (time / 1000 + 59) / 60) + "分");
-                                mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
+                                startForeground(NT_PLAYBAR_ID, mNotification);
                             }
                         }
                     }
@@ -110,7 +110,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                     reViews.setViewVisibility(R.id.button_play_notification_play, View.GONE);
                     reViews.setViewVisibility(R.id.button_pause_notification_play, View.VISIBLE);
                 }
-                mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
+                startForeground(NT_PLAYBAR_ID, mNotification);
 
 
                 //准备播放源，准备后播放
@@ -131,7 +131,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                 reViews.setViewVisibility(R.id.button_play_notification_play, View.VISIBLE);
                 reViews.setViewVisibility(R.id.button_pause_notification_play, View.GONE);
 
-                mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
+                startForeground(NT_PLAYBAR_ID, mNotification);
                 LogUtil.d("pause");
                 mp.pause();
                 handler.removeMessages(MSG_CURRENT);
@@ -148,7 +148,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                 reViews.setViewVisibility(R.id.button_pause_notification_play, View.GONE);
 
                 LogUtil.d("stop");
-                mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
+                startForeground(NT_PLAYBAR_ID, mNotification);
                 mp.stop();
                 handler.removeMessages(MSG_CURRENT);
                 updatePlayStatus(false);
@@ -238,7 +238,7 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         public void setAutoCloseTime(int time) throws RemoteException {
             if (time == 0) {
                 reViews.setTextViewText(R.id.time, "");
-                mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
+                startForeground(NT_PLAYBAR_ID, mNotification);
             }
             sleepTime = time;
             sleepBeginTime = SystemClock.elapsedRealtime();
@@ -466,8 +466,9 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
                 mp.start();
                 reViews.setViewVisibility(R.id.button_play_notification_play, View.GONE);
                 reViews.setViewVisibility(R.id.button_pause_notification_play, View.VISIBLE);
-                mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
+                startForeground(NT_PLAYBAR_ID, mNotification);
                 handler.sendEmptyMessage(MSG_CURRENT);
+                updatePlayStatus(true);
             } else
                 LogUtil.e("play mp=null!");
         } catch (Exception e) {
@@ -530,6 +531,6 @@ public class MusicControlService extends Service implements MediaPlayer.OnComple
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext());
         builder.setContent(reViews).setSmallIcon(NT_PLAYBAR_ID).setTicker(title).setOngoing(true);
 
-        mNotificationManager.notify(NT_PLAYBAR_ID, mNotification);
+        startForeground(NT_PLAYBAR_ID,mNotification);
     }
 }
